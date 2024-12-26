@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Room>
+@{
+    List<RoomType> types = ViewBag.type;
+}
+<div class="row">
+    @foreach (var room in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Room Number: @room.RoomNumber</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Description:</strong> @room.Description</p>
+                    <p><strong>Price:</strong> @room.Price.ToString("C")</p>
+                    <p><strong>Type:</strong> @types.Where(x=>x.RoomType1 == room.Type).Select(x=>x.Type).First()</p>
+                    <p><strong>Availability:</strong> @(room.Available ? "Available" : "Not Available")</p>
+                    <button class="btn btn-primary book-room" data-room-number="@room.RoomNumber">Book</button>
+                    <button class="btn btn-danger delete-room" data-room-number="@room.RoomNumber">Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+    <script>
+        $(document).ready(function () {
+            // Book room functionality
+            $('.book-room').click(function () {
+                var roomNumber = $(this).data('room-number');
+                var checkInDate = $('#checkInDate').val();
+                var checkOutDate = $('#checkOutDate').val();
+
+                $.ajax({
+                    url: '@Url.Action("BookRoom", "Home")',
+                    type: 'POST',
+                    data: {
+                        roomNumber: roomNumber,
+                        checkInDate: checkInDate,
+                        checkOutDate: checkOutDate
+                    },
+                    success: function () {
+                        alert('Room booked successfully!');
+                        location.reload(); // Reload to reflect the updated availability
+                    },
+                    error: function () {
+                        alert('There was an error booking the room.');
+                    }
+                });
+            });
+
+            // Delete room functionality (if applicable, e.g., for admin)
+            $('.delete-room').click(function () {
+                var roomNumber = $(this).data('room-number');
+
+                $.ajax({
+                    url: '@Url.Action("DeleteRoom", "Home")',
+                    type: 'POST',
+                    data: { roomNumber: roomNumber },
+                    success: function () {
+                        alert('Room deleted successfully!');
+                        location.reload(); // Reload to reflect the room deletion
+                    },
+                    error: function () {
+                        alert('There was an error deleting the room.');
+                    }
+                });
+            });
+        });
+    </script>
+

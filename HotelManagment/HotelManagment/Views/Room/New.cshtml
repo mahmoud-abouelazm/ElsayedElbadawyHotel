@@ -1,0 +1,44 @@
+﻿@model Room
+@{
+    ViewData["Title"] = "Add New Room";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Add a New Room</h1>
+        <p class="lead">Fill in the details to add a new room to the system.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post" asp-action="new">
+                <div class="mb-3">
+                    <label asp-for="RoomNum" class="form-label"></label>
+                    <input asp-for="RoomNum" class="form-control" placeholder="Enter room Number" />
+                    <span asp-validation-for="RoomNum" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Type" class="form-label"></label>
+                    <input asp-for="Type" class="form-control" placeholder="Enter room type (e.g., Single, Double)" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label"></label>
+                    <input asp-for="Price" class="form-control" placeholder="Enter room price" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Room</button>
+                <br />
+                <br />
+                <a class="btn btn-secondary" asp-action="Index" >Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Include client-side validation -->
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,81 @@
+@model IEnumerable<Room>
+
+@{
+    ViewData["Title"] = "Available Rooms";
+}
+
+<div class="container mt-5">
+    <!-- Header Buttons -->
+    <div class="mb-4 d-flex justify-content-between">
+        <a asp-controller="Rooms" asp-action="Create" class="btn btn-primary">Add Room</a>
+        <a asp-controller="Guests" asp-action="Create" class="btn btn-secondary">Add Guest</a>
+        <a asp-controller="Services" asp-action="Order" class="btn btn-success">Order Service</a>
+        <a asp-controller="Bills" asp-action="Checkout" class="btn btn-danger">Checkout</a>
+    </div>
+
+    <!-- Search Form -->
+    <div class="mb-4">
+        <div class="row">
+            <div class="col-md-5">
+                <label for="checkIn">Check-In</label>
+                <input type="date" id="checkIn" class="form-control" placeholder="dd/MM/yyyy" />
+            </div>
+            <div class="col-md-5">
+                <label for="checkOut">Check-Out </label>
+                <input type="datet" id="checkOut" class="form-control" placeholder="dd/MM/yyyy" />
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button id="searchButton" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Placeholder for filtered rooms -->
+    <div id="roomsContainer">
+        @await Html.PartialAsync("_RoomsListPartial", Model)
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#searchButton").click(function () {
+                var checkIn = $("#checkIn").val();
+                var checkOut = $("#checkOut").val();
+
+                // Validate date inputs
+                if (!checkIn || !checkOut) {
+                    alert("Please select both check-in and check-out dates in the format dd/MM/yyyy.");
+                    return;
+                }
+
+                var checkInDate = new Date(checkIn.split("/").reverse().join("-"));
+                var checkOutDate = new Date(checkOut.split("/").reverse().join("-"));
+
+                if (isNaN(checkInDate) || isNaN(checkOutDate)) {
+                    alert("Invalid date format. Please use dd/MM/yyyy.");
+                    return;
+                }
+
+                if (checkOutDate <= checkInDate) {
+                    alert("Check-out date must be greater than check-in date.");
+                    return;
+                }
+
+                // Perform AJAX request
+                $.ajax({
+                    url: '/Rooms/SearchAvailableRooms',
+                    type: 'POST',
+                    data: { checkIn: checkIn, checkOut: checkOut },
+                    success: function (result) {
+                        $("#roomsContainer").html(result);
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching available rooms.");
+                    }
+                });
+            });
+        });
+    </script>
+}

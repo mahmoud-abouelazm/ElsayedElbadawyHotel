@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Add Guest for Room";
+    var guests = ViewBag.Guests as List<Guest>;
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Book Room @ViewBag.RoomNum</h1>
+
+    <form asp-action="book" method="post">
+        <input type="hidden" name="RoomId" value="@ViewBag.RoomId" />
+
+        <div class="form-group">
+            <label for="guestId">Select Guest</label>
+            <select class="form-control" id="guestId" name="GuestId" required>
+                <option value="" disabled selected>Select a guest</option>
+                @if (guests != null)
+                {
+                    foreach (var guest in guests)
+                    {
+                        <option value="@guest.NationalNum">@guest.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="checkIn">Check-In</label>
+            <input type="date" class="form-control" id="checkIn" name="CheckIn" required />
+        </div>
+
+        <div class="form-group">
+            <label for="checkOut">Check-Out</label>
+            <input type="date" class="form-control" id="checkOut" name="CheckOut" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>

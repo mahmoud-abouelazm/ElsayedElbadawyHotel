@@ -1,0 +1,67 @@
+﻿@model List<Room>
+@using HotelManagment.Models
+@{
+    ViewData["Title"] = "Hotel Management - Landing Page";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Welcome to Hotel Management</h1>
+        <p class="lead">Manage guests, orders, and checkout effortlessly.</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-center mb-4">
+        <a asp-action="new" asp-controller="guest" class="btn btn-primary btn-lg mx-2">Add Guest</a>
+        <a asp-action="new" asp-controller="room" class="btn btn-primary btn-lg mx-2">Add Room</a>
+        <a asp-action="order" asp-controller="service" class="btn btn-warning btn-lg mx-2">Order Service</a>
+        <a asp-action="checkout" asp-controller="booking" class="btn btn-danger btn-lg mx-2">Checkout</a>
+    </div>
+
+    <!-- Available Rooms -->
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h5>Available Rooms</h5>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Room</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var room in Model)
+                        {
+                            <tr>
+                                <td>@room.RoomNum</td>
+                                <td>@room.Type</td>
+                                <td>@room.Price.ToString("C")</td>
+                                <td>
+                                    <form method="get" asp-action="book" asp-controller="Book">
+                                        <input type="hidden" name="roomId" value="@room.RoomId" />
+                                        <button  type="submit" class="btn btn-success btn-sm">
+                                            Book
+                                        </button>
+                                    </form>
+                                        <button type="submit" class="btn btn-danger btn-sm" formaction="?handler=DeleteRoom">
+                                            Delete
+                                        </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">No rooms are currently available.</p>
+            }
+        </div>
+    </div>
+</div>

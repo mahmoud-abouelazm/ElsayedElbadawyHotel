@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Room>
+
+<div class="row">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var room in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Room @room.RoomNum</h5>
+                        <p class="card-text">
+                            <strong>Type:</strong> @room.Type <br />
+                            <strong>Price:</strong> $@room.Price <br />
+                            <strong>Availability:</strong> @room.Availability
+                        </p>
+                        <button class="btn btn-success">Book</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-center">No rooms available for the selected dates.</p>
+    }
+</div>

@@ -1,0 +1,153 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|d:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\database\\practicalproject\\hotelmanagment\\elsayedhotel\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\elsayedhotel\\views\\home\\_availablerooms.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\views\\home\\_availablerooms.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\elsayedhotel\\models\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\models\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\elsayedhotel\\repository\\roomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\repository\\roomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\elsayedhotel\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\elsayedhotel\\irepository\\iroomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\irepository\\iroomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\elsayedhotel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\elsayedhotel\\repository\\reservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C5A5DC6-49F0-4473-9DF0-DBA8979843B1}|ElSayedHotel\\ElSayedHotel.csproj|solutionrelative:elsayedhotel\\repository\\reservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ElSayedHotel\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ElSayedHotel\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-22T21:32:34.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Room.cs",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Models\\Room.cs",
+              "RelativeDocumentMoniker": "ElSayedHotel\\Models\\Room.cs",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Models\\Room.cs",
+              "RelativeToolTip": "ElSayedHotel\\Models\\Room.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAmwB8AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T21:15:24.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_AvailableRooms.cshtml",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Views\\Home\\_AvailableRooms.cshtml",
+              "RelativeDocumentMoniker": "ElSayedHotel\\Views\\Home\\_AvailableRooms.cshtml",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Views\\Home\\_AvailableRooms.cshtml",
+              "RelativeToolTip": "ElSayedHotel\\Views\\Home\\_AvailableRooms.cshtml",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAAEcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-22T21:13:25.625Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RoomRepository.cs",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Repository\\RoomRepository.cs",
+              "RelativeDocumentMoniker": "ElSayedHotel\\Repository\\RoomRepository.cs",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Repository\\RoomRepository.cs",
+              "RelativeToolTip": "ElSayedHotel\\Repository\\RoomRepository.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAgwBYAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T21:01:24.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ReservationRepository.cs",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Repository\\ReservationRepository.cs",
+              "RelativeDocumentMoniker": "ElSayedHotel\\Repository\\ReservationRepository.cs",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Repository\\ReservationRepository.cs",
+              "RelativeToolTip": "ElSayedHotel\\Repository\\ReservationRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T21:00:49.687Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IRoomRepository.cs",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\IRepository\\IRoomRepository.cs",
+              "RelativeDocumentMoniker": "ElSayedHotel\\IRepository\\IRoomRepository.cs",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\IRepository\\IRoomRepository.cs",
+              "RelativeToolTip": "ElSayedHotel\\IRepository\\IRoomRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T20:50:28.482Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Program.cs",
+              "RelativeDocumentMoniker": "ElSayedHotel\\Program.cs",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Program.cs",
+              "RelativeToolTip": "ElSayedHotel\\Program.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAxwBEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T20:48:48.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ElSayedHotel\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\\u0627\u0644\u0643\u0644\u064A\u0629\\\u0631\u0627\u0628\u0639\u0629\\\u062A\u0631\u0645 \u0623\u0648\u0644\\DataBase\\PracticalProject\\HotelManagment\\ElSayedHotel\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ElSayedHotel\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABQAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-22T20:48:40.754Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

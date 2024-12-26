@@ -47,7 +47,7 @@ The **Hotel Management System** is a web-based application built using the ASP.N
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-repo/hotel-management-system.git
+   git clone https://github.com/mahmoud-abouelazm/ElsayedElbadawyHotel/tree/main
    ```
 
 2. **Open the Solution**:

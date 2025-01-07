@@ -78,13 +78,12 @@ The **Hotel Management System** is a web-based application built using the ASP.N
 ## Entity-Relationship Diagram
 
 *The ER diagram illustrates the relationships between various entities in the system.*
-## Database Schema
-Below is the schema used for the system's database:
+
 <p align="center">
   <img src="ERD.jpg" >
 </p>
-
----
+## Database Schema
+Below is the schema used for the system's database:
 
 ### Tables
 - **Guest**: Stores guest information.

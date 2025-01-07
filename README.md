@@ -1,4 +1,8 @@
+
 # Hotel Management System
+<p align="center">
+  <img src="Logo.png" width="200">
+</p>
 
 ## Overview
 The **Hotel Management System** is a web-based application built using the ASP.NET MVC framework. It streamlines essential hotel operations, including room reservations, guest management, service orders, and billing. This project aims to provide a user-friendly interface and efficient backend processes to improve hotel operations and enhance guest satisfaction.
@@ -37,6 +41,8 @@ The **Hotel Management System** is a web-based application built using the ASP.N
 ### **Backend**
 - **ASP.NET MVC**: Framework for application logic and routing.
 - **Entity Framework**: For database interaction.
+- **Repository Design Pattern**: Ensures a clean and maintainable data access layer.
+- **SOLID Principles**: Provides a scalable and robust architecture.
 
 ### **Database**
 - **SQL Server**: Relational database to manage data efficiently.
@@ -69,18 +75,27 @@ The **Hotel Management System** is a web-based application built using the ASP.N
 
 ---
 
-## Usage
+## Entity-Relationship Diagram
 
-### **Landing Page**
-- Navigate the system using the main menu, which includes:
-  - **Add Room**
-  - **Add Guest**
-  - **Show Reservations**
-  - **Order Service**
-  - **Checkout**
-  - **Pay Bill**
+*The ER diagram illustrates the relationships between various entities in the system.*
+## Database Schema
+Below is the schema used for the system's database:
+<p align="center">
+  <img src="ERD.jpg" >
+</p>
 
-### **Search Rooms**
-- Enter check-in and check-out dates to find available rooms.
-- Book or delete rooms directly from the search results.
+---
+
+### Tables
+- **Guest**: Stores guest information.
+- **RoomType**: Defines different types of rooms.
+- **Room**: Manages room details and availability.
+- **Reservation**: Handles room bookings.
+- **Service**: Stores additional services offered.
+- **ServiceOrder**: Tracks service orders linked to reservations.
+- **Bill**: Automates billing and payment statuses.
+<p align="center">
+  <img src="Schema.jpg" >
+</p>
+
 

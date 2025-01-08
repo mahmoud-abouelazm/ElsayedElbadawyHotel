@@ -82,6 +82,7 @@ The **Hotel Management System** is a web-based application built using the ASP.N
 <p align="center">
   <img src="ERD.jpg" >
 </p>
+
 ## Database Schema
 Below is the schema used for the system's database:
 

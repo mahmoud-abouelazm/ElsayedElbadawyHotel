@@ -1,6 +1,9 @@
 using ElSayedHotel.IRepository;
 using ElSayedHotel.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using NuGet.Protocol;
 using System.Diagnostics;
 
 namespace ElSayedHotel.Controllers
@@ -13,22 +16,29 @@ namespace ElSayedHotel.Controllers
         public HomeController(IRoomRepository roomRepository, IReservationRepository reservationRepository)
         {
             _roomRepository = roomRepository;
+            
             _reservationRepository = reservationRepository;
         }
-
-        public ActionResult Index()
+        public IActionResult data(RoomType r , string type)
+        {
+            return Content(type);
+        }
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult SearchAvailableRooms(DateTime checkInDate, DateTime? checkOutDate)
+        public IActionResult SearchAvailableRooms(DateTime checkInDate, DateTime checkOutDate)
         {
-            // Set the fixed check-in and check-out times
+            if (checkInDate == null || checkOutDate == null)
+            {
+                return null;
+            }
             var checkInDateTime = new DateTime(checkInDate.Year, checkInDate.Month, checkInDate.Day, 14, 0, 0); // 14:00
-            var checkOutDateTime = new DateTime(checkOutDate.Value.Year, checkOutDate.Value.Month, checkOutDate.Value.Day, 9, 0, 0); // 09:00
-
-            var availableRooms = _roomRepository.GetAvailableRooms(checkInDateTime, checkOutDateTime);
+            var checkOutDateTime = new DateTime(checkOutDate.Year, checkOutDate.Month, checkOutDate.Day, 9, 0, 0); // 09:00
+            
+            var availableRooms =  _roomRepository.GetAvailableRooms(checkInDateTime, checkOutDateTime);
             ViewBag.type = _roomRepository.GetTypes();
             return PartialView("_AvailableRooms", availableRooms);
         }
@@ -56,6 +66,7 @@ namespace ElSayedHotel.Controllers
         public ActionResult DeleteRoom(int roomNumber)
         {
             _roomRepository.DeleteRoom(roomNumber);
+            
             return RedirectToAction("Index");
         }
     }

@@ -1,5 +1,6 @@
 ﻿
 using ElSayedHotel.Models;
+using ElSayedHotel.ViewModel;
 
 namespace ElSayedHotel.IRepository
 {
@@ -8,5 +9,7 @@ namespace ElSayedHotel.IRepository
         void DeleteRoom(int roomNumber);
         List<Room> GetAvailableRooms(DateTime checkInDate, DateTime? checkOutDate);
         List<RoomType> GetTypes();
+        bool AddRoom(RoomViewModel roomViewModel);
+        bool RoomExist(int roomNumber);
     }
 }

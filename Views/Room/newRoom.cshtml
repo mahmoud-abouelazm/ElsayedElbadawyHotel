@@ -1,0 +1,72 @@
+﻿@model ElSayedHotel.ViewModel.RoomViewModel
+@{
+    ViewData["Title"] = "New Room";
+    SelectList list = new SelectList(Model.roomTypesList, "RoomType1", "Type");
+}
+
+<h1 class="text-center text-primary">Add New Room</h1>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="newRoom" class="shadow p-4 rounded bg-light">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Room Number -->
+            <div class="form-group mb-3">
+                <label asp-for="RoomNumber" class="form-label fw-bold"></label>
+                <input asp-for="RoomNumber" class="form-control" placeholder="Enter room number" />
+                <span asp-validation-for="RoomNumber" class="text-danger small"></span>
+            </div>
+
+            <!-- Price -->
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="form-label fw-bold"></label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input asp-for="Price" class="form-control" placeholder="Enter price" />
+                </div>
+                <span asp-validation-for="Price" class="text-danger small"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="form-label fw-bold"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+
+            <!-- Room Type -->
+            <div class="form-group mb-3">
+                <label asp-for="Type" class="form-label fw-bold"></label>
+                <select asp-for="Type" class="form-select" asp-items="list">
+                    <option value="0">Select room type</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger small"></span>
+            </div>
+
+            <!-- Hidden Field -->
+            <input type="hidden" asp-for="roomTypesList" value="@Model.roomTypesList" />
+
+            <!-- Submit Button -->
+            <div class="form-group d-grid gap-2">
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-check-circle"></i> Create Room
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Back to List -->
+<div class="text-center mt-4">
+    <a asp-action="Index" asp-controller="home" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back to List
+    </a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,98 +1,184 @@
 ﻿@{
     ViewData["Title"] = "Hotel Management System";
+
 }
-<div class="container">
-    <!-- Header Section with Logo -->
-    <div class=" justify-content-between align-items-center mb-5">
-        <div>
-            <img src="/img/Logo.png" alt="Hotel Logo" class="img-fluid" style="max-width: 150px;" />
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .hero-section {
+            background: url('/img/hero-bg.jpg') no-repeat center center/cover;
+            height: 300px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+            .hero-section h1 {
+                margin-bottom: 20px;
+            }
+
+            .hero-section p {
+                margin-bottom: 40px;
+            }
+
+        .btn-custom {
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .search-container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+            .search-container label {
+                margin-right: 10px;
+            }
+
+            .search-container input[type="date"] {
+                width: 150px;
+                margin-right: 10px;
+            }
+
+            .search-container button {
+                padding: 10px 20px;
+                border-radius: 25px;
+            }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .loading-spinner i {
+                font-size: 48px;
+            }
+
+        .available-rooms-container {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <img src="/img/Logo.png" alt="Hotel Logo" class="img-fluid logo" style="max-width: 150px; margin-bottom: 20px;" />
+            <br />
+            <h1 style="color:black">@ViewData["Title"]</h1>
+            <p style="color:black">Effortlessly Manage Rooms, Reservations, Services, and More</p>
         </div>
 
-        
+        <!-- Buttons Section -->
+        <div class="buttons-container">
+            <a asp-action="newroom" asp-controller="room" class="btn btn-primary btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new room">
+                <i class="fas fa-bed"></i> Add Room
+            </a>
+            <a href="#" class="btn btn-success btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new guest">
+                <i class="fas fa-user-plus"></i> Add Guest
+            </a>
+            <a href="#" class="btn btn-info btn-custom" data-toggle="tooltip" data-placement="top" title="View all reservations">
+                <i class="fas fa-calendar-check"></i> Show Reservations
+            </a>
+            <a href="#" class="btn btn-warning btn-custom" data-toggle="tooltip" data-placement="top" title="Order a service">
+                <i class="fas fa-concierge-bell"></i> Order Service
+            </a>
+            <a href="#" class="btn btn-danger btn-custom" data-toggle="tooltip" data-placement="top" title="Checkout a guest">
+                <i class="fas fa-sign-out-alt"></i> Checkout
+            </a>
+            <a href="#" class="btn btn-secondary btn-custom" data-toggle="tooltip" data-placement="top" title="Pay a bill">
+                <i class="fas fa-credit-card"></i> Pay Bill
+            </a>
+        </div>
+
+        <!-- Search Bar Section -->
+        <div class="search-container">
+            <div class="form-inline justify-content-center mb-3">
+                <label for="checkInDate" class="mr-2">Check-in Date:</label>
+                <input type="date" id="checkInDate" class="form-control mr-3" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-inline justify-content-center mb-3">
+                <label for="checkOutDate" class="mr-2">Check-out Date:</label>
+                <input type="date" id="checkOutDate" class="form-control mr-3" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="text-center">
+                <button id="searchRooms" class="btn btn-success btn-custom">Search Rooms</button>
+            </div>
+            <!-- Loading Spinner (hidden by default) -->
+            <div id="loadingSpinner" class="loading-spinner" style="display:none;">
+                <i class="fas fa-spinner fa-spin fa-3x"></i>
+                <p>Loading available rooms...</p>
+            </div>
+        </div>
+
+        <!-- Partial View for Available Rooms -->
+        <div id="availableRoomsContainer" class="available-rooms-container"></div>
     </div>
-    <h1 class="text-center mb-2">@ViewData["Title"]</h1>
-    <br />
-    <h2 class="text-center mb-3">Effortlessly Manage Rooms, Reservations, Services, and More</h2>
 
-    <!-- Buttons as Links with Different Colors -->
-    <div class="d-flex justify-content-around mb-4">
-        <a href="#" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="top" title="Add a new room">
-            <i class="fas fa-bed"></i> Add Room
-        </a>
-        <a href="#" class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="top" title="Add a new guest">
-            <i class="fas fa-user-plus"></i> Add Guest
-        </a>
-        <a href="#" class="btn btn-info btn-lg" data-toggle="tooltip" data-placement="top" title="View all reservations">
-            <i class="fas fa-calendar-check"></i> Show Reservations
-        </a>
-        <a href="#" class="btn btn-warning btn-lg" data-toggle="tooltip" data-placement="top" title="Order a service">
-            <i class="fas fa-concierge-bell"></i> Order Service
-        </a>
-        <a href="#" class="btn btn-danger btn-lg" data-toggle="tooltip" data-placement="top" title="Checkout a guest">
-            <i class="fas fa-sign-out-alt"></i> Checkout
-        </a>
-        <a href="#" class="btn btn-secondary btn-lg" data-toggle="tooltip" data-placement="top" title="Pay a bill">
-            <i class="fas fa-credit-card"></i> Pay Bill
-        </a>
-    </div>
+    @section Scripts {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Enable tooltips
+                $('[data-toggle="tooltip"]').tooltip();
 
-    <!-- Search Bar Section with More Space -->
-    <div class="mb-4">
-        <div class="form-inline justify-content-center mb-3">
-            <label for="checkInDate" class="mr-2">Check-in Date:</label>
-            <input type="date" id="checkInDate" class="form-control mr-3" />
-        </div>
-        <div class="form-inline justify-content-center mb-3">
-            <label for="checkOutDate" class="mr-2">Check-out Date:</label>
-            <input type="date" id="checkOutDate" class="form-control mr-3" />
-        </div>
-        <div class="text-center">
-            <button id="searchRooms" class="btn btn-success btn-lg">Search Rooms</button>
-        </div>
+                // Prevent check-out date from being earlier than check-in date
+                $('#checkInDate').change(function () {
+                    var checkInDate = new Date($(this).val());
+                    var minCheckOutDate = new Date(checkInDate);
+                    minCheckOutDate.setDate(minCheckOutDate.getDate() + 1); // Ensure check-out date is at least one day after check-in
+                    $('#checkOutDate').attr('min', minCheckOutDate.toISOString().split('T')[0]);
+                });
 
-        <!-- Loading Spinner (hidden by default) -->
-        <div id="loadingSpinner" class="text-center mt-3" style="display:none;">
-            <i class="fas fa-spinner fa-spin fa-3x"></i>
-            <p>Loading available rooms...</p>
-        </div>
-    </div>
-
-    <!-- Partial View for Available Rooms -->
-    <div id="availableRoomsContainer"></div>
-</div>
-
-@section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Enable tooltips
-            $('[data-toggle="tooltip"]').tooltip();
-
-            $('#searchRooms').click(function () {
-                var checkInDate = $('#checkInDate').val();
-                var checkOutDate = $('#checkOutDate').val();
-
-                // Show loading spinner
-                $('#loadingSpinner').show();
-
-                $.ajax({
-                    url: '@Url.Action("SearchAvailableRooms", "Home")',
-                    type: 'POST',
-                    data: {
-                        checkInDate: checkInDate,
-                        checkOutDate: checkOutDate
-                    },
-                    success: function (response) {
-                        $('#loadingSpinner').hide();  // Hide spinner once rooms are loaded
-                        $('#availableRoomsContainer').html(response);
-                    },
-                    error: function () {
-                        $('#loadingSpinner').hide();
-                        alert('Error loading available rooms. Please try again.');
-                    }
+                $('#searchRooms').click(function () {
+                    var checkInDate = $('#checkInDate').val();
+                    var checkOutDate = $('#checkOutDate').val();
+                    // Show loading spinner
+                    $('#loadingSpinner').show();
+                    $.ajax({
+                        url: '@Url.Action("SearchAvailableRooms", "Home")',
+                        type: 'POST',
+                        data: {
+                            checkInDate: checkInDate,
+                            checkOutDate: checkOutDate
+                        },
+                        success: function (response) {
+                            $('#loadingSpinner').hide();  // Hide spinner once rooms are loaded
+                            $('#availableRoomsContainer').html(response);
+                        },
+                        error: function () {
+                            $('#loadingSpinner').hide();
+                            alert('Error loading available rooms. Please try again.');
+                        }
+                    });
                 });
             });
-        });
-    </script>
-}
+        </script>
+    }
+
+</body>
+</html>

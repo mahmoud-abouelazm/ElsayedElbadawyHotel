@@ -2,11 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElSayedHotel.Models;
 
-public partial class HotelElsayedContext : DbContext
+public partial class HotelElsayedContext : IdentityDbContext<ApplicationUser>
 {
     public HotelElsayedContext()
     {
@@ -28,12 +30,10 @@ public partial class HotelElsayedContext : DbContext
     public virtual DbSet<RoomType> RoomTypes { get; set; }
 
     public virtual DbSet<Service> Services { get; set; }
-
+     
     public virtual DbSet<ServiceOrder> ServiceOrders { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HotelElsayed;TrustServerCertificate=True;Integrated Security=True");
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Bill>(entity =>
@@ -105,7 +105,7 @@ public partial class HotelElsayedContext : DbContext
                 .HasConstraintName("FK__ServiceOr__Servi__45F365D3");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+        base.OnModelCreating(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Hotel Management System";
-
 }
 
 <!DOCTYPE html>
@@ -32,7 +31,7 @@
             }
 
             .hero-section p {
-                margin-bottom: 40px;
+                margin-bottom: 20px;
             }
 
         .btn-custom {
@@ -43,27 +42,12 @@
         .buttons-container {
             display: flex;
             justify-content: space-around;
-            margin-top: 30px;
+            margin-bottom: 30px;
         }
 
         .search-container {
-            margin-top: 50px;
             text-align: center;
         }
-
-            .search-container label {
-                margin-right: 10px;
-            }
-
-            .search-container input[type="date"] {
-                width: 150px;
-                margin-right: 10px;
-            }
-
-            .search-container button {
-                padding: 10px 20px;
-                border-radius: 25px;
-            }
 
         .loading-spinner {
             display: none;
@@ -84,13 +68,7 @@
 
     <div class="container">
         <!-- Hero Section -->
-        <div class="hero-section">
-            <img src="/img/Logo.png" alt="Hotel Logo" class="img-fluid logo" style="max-width: 150px; margin-bottom: 20px;" />
-            <br />
-            <h1 style="color:black">@ViewData["Title"]</h1>
-            <p style="color:black">Effortlessly Manage Rooms, Reservations, Services, and More</p>
-        </div>
-
+        <partial name="_hero" />
         <!-- Buttons Section -->
         <div class="buttons-container">
             <a asp-action="newroom" asp-controller="room" class="btn btn-primary btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new room">
@@ -123,11 +101,33 @@
                 <label for="checkOutDate" class="mr-2">Check-out Date:</label>
                 <input type="date" id="checkOutDate" class="form-control mr-3" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
             </div>
+
+            <!-- Guests Selection -->
+            <div class="form-inline justify-content-center mb-3">
+                <label for="adults" class="mr-2">Adults:</label>
+                <select id="adults" class="form-control mr-3">
+                    <option value="1">1 Adult</option>
+                    <option value="2" selected>2 Adults</option>
+                    <option value="3">3 Adults</option>
+                    <option value="4">4 Adults</option>
+                    <option value="5">5 Adults</option>
+                </select>
+
+                <label for="babies" class="mr-2">Babies:</label>
+                <select id="babies" class="form-control">
+                    <option value="0" selected>No Babies</option>
+                    <option value="1">1 Baby</option>
+                    <option value="2">2 Babies</option>
+                    <option value="3">3 Babies</option>
+                </select>
+            </div>
+
             <div class="text-center">
                 <button id="searchRooms" class="btn btn-success btn-custom">Search Rooms</button>
             </div>
-            <!-- Loading Spinner (hidden by default) -->
-            <div id="loadingSpinner" class="loading-spinner" style="display:none;">
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner">
                 <i class="fas fa-spinner fa-spin fa-3x"></i>
                 <p>Loading available rooms...</p>
             </div>
@@ -139,35 +139,30 @@
 
     @section Scripts {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <script>
             $(document).ready(function () {
-                // Enable tooltips
-                $('[data-toggle="tooltip"]').tooltip();
-
                 // Prevent check-out date from being earlier than check-in date
                 $('#checkInDate').change(function () {
                     var checkInDate = new Date($(this).val());
                     var minCheckOutDate = new Date(checkInDate);
-                    minCheckOutDate.setDate(minCheckOutDate.getDate() + 1); // Ensure check-out date is at least one day after check-in
+                    minCheckOutDate.setDate(minCheckOutDate.getDate() + 1);
                     $('#checkOutDate').attr('min', minCheckOutDate.toISOString().split('T')[0]);
                 });
 
                 $('#searchRooms').click(function () {
                     var checkInDate = $('#checkInDate').val();
                     var checkOutDate = $('#checkOutDate').val();
-                    // Show loading spinner
+                    var adults = $('#adults').val();
+                    var babies = $('#babies').val();
+
                     $('#loadingSpinner').show();
+
                     $.ajax({
                         url: '@Url.Action("SearchAvailableRooms", "Home")',
                         type: 'POST',
-                        data: {
-                            checkInDate: checkInDate,
-                            checkOutDate: checkOutDate
-                        },
+                        data: { checkInDate, checkOutDate, adults, babies },
                         success: function (response) {
-                            $('#loadingSpinner').hide();  // Hide spinner once rooms are loaded
+                            $('#loadingSpinner').hide();
                             $('#availableRoomsContainer').html(response);
                         },
                         error: function () {
@@ -179,6 +174,5 @@
             });
         </script>
     }
-
 </body>
 </html>

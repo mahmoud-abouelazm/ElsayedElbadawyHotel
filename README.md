@@ -8,7 +8,6 @@
 The **Hotel Management System** is a web-based application built using the ASP.NET MVC framework. It streamlines essential hotel operations, including room reservations, guest management, service orders, and billing. This project aims to provide a user-friendly interface and efficient backend processes to improve hotel operations and enhance guest satisfaction.
 
 ---
-
 ## Features
 
 ### 1. **Room Management**
@@ -31,6 +30,9 @@ The **Hotel Management System** is a web-based application built using the ASP.N
 - Process payments and update payment statuses.
 
 ---
+<p align="center">
+  <img src="sample.jpg">
+</p>
 
 ## Technology Stack
 

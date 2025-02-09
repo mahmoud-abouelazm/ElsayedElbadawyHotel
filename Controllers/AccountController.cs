@@ -14,13 +14,13 @@ namespace ElSayedHotel.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public IActionResult Register()
+        public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewMode Newuser)
+        public async Task<IActionResult> login(RegisterViewMode Newuser)
         {
             if(ModelState.IsValid)
             {

@@ -7,10 +7,15 @@
     {
         <div class="col-md-4 mb-4">
             <div class="card">
+                
                 <div class="card-header">
                     <h5 class="card-title">Room Number: @room.RoomNumber</h5>
                 </div>
-                <div class="card-body">
+				<div class="card-body">
+					@if (room.ImagePath is not null)
+					{
+						<img src="@room.ImagePath" alt="Room Image" width="100" height="100" />
+					}
                     <p><strong>Description:</strong> @room.Description</p>
                     <p><strong>Price:</strong> @room.Price.ToString("C")</p>
                     <p><strong>Type:</strong> @types.Where(x=>x.RoomType1 == room.Type).Select(x=>x.Type).First()</p>

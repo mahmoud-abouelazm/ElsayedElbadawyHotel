@@ -22,5 +22,6 @@ namespace ElSayedHotel.ViewModel
         public int Type { get; set; }
         public List<RoomType> roomTypesList { get; set; }
 
+        public IFormFile? imageFile {get; set;}
     }
 }

@@ -30,4 +30,7 @@ public partial class Room
     [ForeignKey("Type")]
     [InverseProperty("Rooms")]
     public virtual RoomType TypeNavigation { get; set; }
+    public string? ImageName { get; set; } // Store the image file name
+
+    public string? ImagePath { get; set; } // Store the path to the image
 }

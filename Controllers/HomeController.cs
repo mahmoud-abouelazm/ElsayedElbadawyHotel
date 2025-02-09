@@ -1,3 +1,4 @@
+using ElSayedHotel.Filters;
 using ElSayedHotel.IRepository;
 using ElSayedHotel.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +24,10 @@ namespace ElSayedHotel.Controllers
         {
             return Content(type);
         }
-        public IActionResult Index()
+        public IActionResult Index(string error = "Hotel Management System")
         {
-            return View();
+            return View((object)error);
         }
-
         [HttpPost]
         public IActionResult SearchAvailableRooms(DateTime checkInDate, DateTime checkOutDate)
         {

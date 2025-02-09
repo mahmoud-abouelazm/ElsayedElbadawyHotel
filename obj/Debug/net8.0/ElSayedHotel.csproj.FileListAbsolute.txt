@@ -354,3 +354,4 @@ D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\bin\Debug
 D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\obj\Debug\net8.0\ElSayedHotel.sourcelink.json

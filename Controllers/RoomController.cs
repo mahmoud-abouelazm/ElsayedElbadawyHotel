@@ -1,11 +1,14 @@
-﻿using ElSayedHotel.IRepository;
+﻿using ElSayedHotel.Filters;
+using ElSayedHotel.IRepository;
 using ElSayedHotel.Models;
 using ElSayedHotel.Repository;
 using ElSayedHotel.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElSayedHotel.Controllers
 {
+    [PageNotFound]
     public class RoomController : Controller
     {
         private IRoomRepository roomRepository;
@@ -17,18 +20,21 @@ namespace ElSayedHotel.Controllers
         {
             return View();
         }
+        //[Authorize]
         public IActionResult newRoom()
         {
+            
             RoomViewModel roomViewModel = new RoomViewModel() { roomTypesList = roomRepository.GetTypes()};
             return View(roomViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult newRoom(RoomViewModel room)
+        //[Authorize]
+        public async Task<IActionResult> newRoom(RoomViewModel room)
         {
-            if(ModelState.IsValid && roomRepository.AddRoom(room))
+            if (await roomRepository.AddRoomAsync(room) && ModelState.IsValid )
             {
-                return RedirectToAction("index", "home");
+                return  RedirectToAction("index", "home");
             }
             return View(room);
         }

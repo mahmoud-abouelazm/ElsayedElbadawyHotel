@@ -9,7 +9,7 @@ namespace ElSayedHotel.IRepository
         void DeleteRoom(int roomNumber);
         List<Room> GetAvailableRooms(DateTime checkInDate, DateTime? checkOutDate);
         List<RoomType> GetTypes();
-        bool AddRoom(RoomViewModel roomViewModel);
+        Task<bool> AddRoomAsync(RoomViewModel roomViewModel);
         bool RoomExist(int roomNumber);
     }
 }

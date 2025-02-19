@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/FkKhh2meXspWN4XbftDLa6tz5exmu9WoXacA/h9Lk0=",
+  "Hash": "/HlEgco6zv9LLvJEC2s0vIi5z5nUXm3qECB6PTjwe7I=",
   "Source": "ElSayedHotel",
   "BasePath": "_content/ElSayedHotel",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\داتا من مروان\\ITI courses\\.NET Course\\9.MVC\\ElSayedHotel\\wwwroot\\images\\2ca706c3-74ee-4496-9121-540f29381ac5.png",
+      "SourceId": "ElSayedHotel",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\داتا من مروان\\ITI courses\\.NET Course\\9.MVC\\ElSayedHotel\\wwwroot\\",
+      "BasePath": "_content/ElSayedHotel",
+      "RelativePath": "images/2ca706c3-74ee-4496-9121-540f29381ac5.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\2ca706c3-74ee-4496-9121-540f29381ac5.png"
     },
     {
       "Identity": "D:\\داتا من مروان\\ITI courses\\.NET Course\\9.MVC\\ElSayedHotel\\wwwroot\\img\\Logo.png",

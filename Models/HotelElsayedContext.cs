@@ -10,13 +10,9 @@ namespace ElSayedHotel.Models;
 
 public partial class HotelElsayedContext : IdentityDbContext<ApplicationUser>
 {
-    public HotelElsayedContext()
+    public HotelElsayedContext(DbContextOptions<HotelElsayedContext> options):base(options)
     {
-    }
-
-    public HotelElsayedContext(DbContextOptions<HotelElsayedContext> options)
-        : base(options)
-    {
+        
     }
 
     public virtual DbSet<Bill> Bills { get; set; }

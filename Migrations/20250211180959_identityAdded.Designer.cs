@@ -4,6 +4,7 @@ using ElSayedHotel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElSayedHotel.Migrations
 {
     [DbContext(typeof(HotelElsayedContext))]
-    partial class HotelElsayedContextModelSnapshot : ModelSnapshot
+    [Migration("20250211180959_identityAdded")]
+    partial class identityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,7 +130,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("ReservationNumber");
 
-                    b.ToTable("Bill", (string)null);
+                    b.ToTable("Bill");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Guest", b =>
@@ -148,7 +151,7 @@ namespace ElSayedHotel.Migrations
                     b.HasKey("GuestId")
                         .HasName("PK__Guest__0C423C12E8623CD2");
 
-                    b.ToTable("Guest", (string)null);
+                    b.ToTable("Guest");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>
@@ -183,7 +186,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("RoomNumber");
 
-                    b.ToTable("Reservation", (string)null);
+                    b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Room", b =>
@@ -217,7 +220,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("Type");
 
-                    b.ToTable("Room", (string)null);
+                    b.ToTable("Room");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.RoomType", b =>
@@ -236,7 +239,7 @@ namespace ElSayedHotel.Migrations
                     b.HasKey("RoomType1")
                         .HasName("PK__RoomType__3A76E8C27BC59CB5");
 
-                    b.ToTable("RoomType", (string)null);
+                    b.ToTable("RoomType");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Service", b =>
@@ -258,7 +261,7 @@ namespace ElSayedHotel.Migrations
                     b.HasKey("ServiceId")
                         .HasName("PK__Service__C51BB00A07EC4D23");
 
-                    b.ToTable("Service", (string)null);
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.ServiceOrder", b =>
@@ -282,7 +285,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("ReservationNumber");
 
-                    b.ToTable("ServiceOrder", (string)null);
+                    b.ToTable("ServiceOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

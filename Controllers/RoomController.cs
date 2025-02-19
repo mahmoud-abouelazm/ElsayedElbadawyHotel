@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ElSayedHotel.Controllers
 {
-    [PageNotFound]
+    [Authorize]
     public class RoomController : Controller
     {
         private IRoomRepository roomRepository;
@@ -16,20 +16,15 @@ namespace ElSayedHotel.Controllers
         {
             roomRepository = _roomRepository;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        //[Authorize]
+        [Authorize(Roles = "admin")]
         public IActionResult newRoom()
         {
-            
             RoomViewModel roomViewModel = new RoomViewModel() { roomTypesList = roomRepository.GetTypes()};
             return View(roomViewModel);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
-        //[Authorize]
         public async Task<IActionResult> newRoom(RoomViewModel room)
         {
             if (await roomRepository.AddRoomAsync(room) && ModelState.IsValid )

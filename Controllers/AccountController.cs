@@ -2,17 +2,20 @@
 using ElSayedHotel.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace ElSayedHotel.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<ApplicationUser> _userManager;
-        private SignInManager<ApplicationUser> _signInManager;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+
+        public AccountController(UserManager<ApplicationUser> userManager , SignInManager<ApplicationUser> signInManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
         public IActionResult Login()
         {
@@ -20,30 +23,63 @@ namespace ElSayedHotel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> login(RegisterViewMode Newuser)
+        public async Task<IActionResult> Login(LoginViewModel logInUser)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ApplicationUser user = new();
-                user.UserName = Newuser.Name;
-                user.Address = Newuser.Address;
-                user.PasswordHash = Newuser.Password;
-                IdentityResult res =  await _userManager.CreateAsync(user);
-                if(res.Succeeded)
+                ApplicationUser? user;
+                EmailAddressAttribute email = new();
+                if (email.IsValid(logInUser.UserName))
                 {
-                    await _signInManager.SignInAsync(user , false);
-                    return RedirectToAction("index", "home");
+                    user = await userManager.FindByEmailAsync(logInUser.UserName);
                 }
                 else
                 {
-                    foreach(var item in res.Errors)
+                    user = await userManager.FindByNameAsync(logInUser.UserName);
+                }
+
+                if(user is not null)
+                {
+                    if(await userManager.CheckPasswordAsync(user , logInUser.Password))
                     {
-                        ModelState.AddModelError("" , item.Description);
+                        await signInManager.SignInAsync(user, isPersistent: logInUser.RememberMe);
+                        return RedirectToAction("index", "home");
                     }
-                    return View(Newuser);
+                }
+                ModelState.AddModelError("", "Username or password is invalid");
+            }
+            return View(logInUser);
+        }
+
+        public IActionResult Signup()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> signup(SignUpViewModel signUpUser)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = new()
+                {
+                    UserName = signUpUser.userName,
+                    Email = signUpUser.email,
+                    Address = signUpUser.Address,
+                    NormalizedEmail = signUpUser.email.ToUpper()
+                };
+                IdentityResult createUserResult = await userManager.CreateAsync(user, signUpUser.password);
+                if(createUserResult.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, "User");
+                    return RedirectToAction("login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Cannot handle your request right now , please try again later!");
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return View(signUpUser);
         }
     }
 }

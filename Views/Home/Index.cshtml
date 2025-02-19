@@ -72,9 +72,14 @@
         <partial name="_hero" />
         <!-- Buttons Section -->
         <div class="buttons-container">
-            <a asp-action="newroom" asp-controller="room" class="btn btn-primary btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new room">
-                <i class="fas fa-bed"></i> Add Room
-            </a>
+            @{
+                if (User.IsInRole("admin"))
+                {
+                    <a asp-action="newroom" asp-controller="room" class="btn btn-primary btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new room">
+                        <i class="fas fa-bed"></i> Add Room
+                    </a>
+                }
+            }
             <a href="#" class="btn btn-success btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new guest">
                 <i class="fas fa-user-plus"></i> Add Guest
             </a>

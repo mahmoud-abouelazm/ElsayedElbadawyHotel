@@ -1,6 +1,7 @@
 using ElSayedHotel.IRepository;
 using ElSayedHotel.Models;
 using ElSayedHotel.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -30,9 +31,18 @@ namespace ElSayedHotel
             builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
             builder.Services.AddScoped<IGuestRepository, GuestRepository>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<HotelElsayedContext>();
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login"; // Redirects to your custom login page
+                options.AccessDeniedPath = "/home"; // Redirects unauthorized users
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
+            });
+
             builder.Services.AddDbContext<HotelElsayedContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("main")));
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<HotelElsayedContext>();
             
             
             var app = builder.Build();

@@ -5,6 +5,5 @@ namespace ElSayedHotel.Repository
 {
     public class GuestRepository : IGuestRepository
     {
-        public HotelElsayedContext context = new();
     }
 }

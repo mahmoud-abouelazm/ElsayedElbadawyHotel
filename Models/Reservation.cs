@@ -15,7 +15,8 @@ public partial class Reservation
     public int ReservationNumber { get; set; }
 
     [Required]
-    [StringLength(25)]
+    [StringLength(450)]
+
     public string GuestId { get; set; }
 
     public int RoomNumber { get; set; }
@@ -24,19 +25,19 @@ public partial class Reservation
 
     public DateTime? CheckOut { get; set; }
 
-    public bool? Active { get; set; }
+    public int? Status { get; set; } = 0; // 0 pending 1 confermed 2 canseled  
+    public double? Total { get; set; }
+
 
     [InverseProperty("ReservationNumberNavigation")]
-    public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
+    public virtual Bill Bill { get; set; }
 
     [ForeignKey("GuestId")]
     [InverseProperty("Reservations")]
-    public virtual Guest Guest { get; set; }
+    public virtual ApplicationUser Guest { get; set; }
 
     [ForeignKey("RoomNumber")]
     [InverseProperty("Reservations")]
     public virtual Room RoomNumberNavigation { get; set; }
 
-    [InverseProperty("ReservationNumberNavigation")]
-    public virtual ICollection<ServiceOrder> ServiceOrders { get; set; } = new List<ServiceOrder>();
 }

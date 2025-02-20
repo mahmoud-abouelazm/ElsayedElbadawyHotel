@@ -19,17 +19,21 @@ public partial class Room
 
     public bool Available { get; set; }
 
-    [StringLength(255)]
     public string Description { get; set; }
 
-    public int Type { get; set; }
+    public int roomType { get; set; }
+    [StringLength(450)]
+    public string ownerId { get; set; }
+
 
     [InverseProperty("RoomNumberNavigation")]
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
-    [ForeignKey("Type")]
+    [ForeignKey("roomType")]
     [InverseProperty("Rooms")]
     public virtual RoomType TypeNavigation { get; set; }
+    [ForeignKey("ownerId")]
+    public virtual ApplicationUser owner { get; set; }
     public string? ImageName { get; set; } // Store the image file name
 
     public string? ImagePath { get; set; } // Store the path to the image

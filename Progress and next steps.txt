@@ -1,0 +1,7 @@
+﻿will change the business model into a room reservaion platform like airbnb 
+- add rating for the room
+- add address for the room ( as country and city )
+- add review for the rooms
+- add room owner 
+- link applicaiont use with the database
+- remove services

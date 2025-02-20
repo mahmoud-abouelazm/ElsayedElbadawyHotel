@@ -54,8 +54,8 @@ namespace ElSayedHotel.Controllers
                 RoomNumber = roomNumber,
                 GuestId = guestId,
                 CheckIn = checkInDateTime,
-                CheckOut = checkOutDateTime,
-                Active = false
+                CheckOut = checkOutDateTime
+             
             };
 
             _reservationRepository.CreateReservation(reservation);

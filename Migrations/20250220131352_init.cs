@@ -30,7 +30,9 @@ namespace ElSayedHotel.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    firstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    lastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -52,19 +54,6 @@ namespace ElSayedHotel.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Guest",
-                columns: table => new
-                {
-                    GuestId = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__Guest__0C423C12E8623CD2", x => x.GuestId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RoomType",
                 columns: table => new
                 {
@@ -74,21 +63,7 @@ namespace ElSayedHotel.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__RoomType__3A76E8C27BC59CB5", x => x.RoomType);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Service",
-                columns: table => new
-                {
-                    ServiceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<double>(type: "float", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__Service__C51BB00A07EC4D23", x => x.ServiceId);
+                    table.PrimaryKey("PK_RoomType", x => x.RoomType);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,18 +176,27 @@ namespace ElSayedHotel.Migrations
                 name: "Room",
                 columns: table => new
                 {
-                    RoomNumber = table.Column<int>(type: "int", nullable: false),
+                    RoomNumber = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    Available = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Available = table.Column<bool>(type: "bit", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    roomType = table.Column<int>(type: "int", nullable: false),
+                    ownerId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Room__AE10E07B607B7DE1", x => x.RoomNumber);
+                    table.PrimaryKey("PK_Room", x => x.RoomNumber);
                     table.ForeignKey(
-                        name: "FK__Room__Type__3C69FB99",
-                        column: x => x.Type,
+                        name: "FK_Room_AspNetUsers_ownerId",
+                        column: x => x.ownerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Room_RoomType_roomType",
+                        column: x => x.roomType,
                         principalTable: "RoomType",
                         principalColumn: "RoomType",
                         onDelete: ReferentialAction.Cascade);
@@ -224,25 +208,28 @@ namespace ElSayedHotel.Migrations
                 {
                     ReservationNumber = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GuestId = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    GuestId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     RoomNumber = table.Column<int>(type: "int", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: true)
+                    Status = table.Column<int>(type: "int", nullable: true),
+                    Total = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Reservat__FAA69AEADC809201", x => x.ReservationNumber);
+                    table.PrimaryKey("PK_Reservation", x => x.ReservationNumber);
                     table.ForeignKey(
-                        name: "FK__Reservati__Guest__3F466844",
+                        name: "FK_Reservation_AspNetUsers_GuestId",
                         column: x => x.GuestId,
-                        principalTable: "Guest",
-                        principalColumn: "GuestId");
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__Reservati__RoomN__403A8C7D",
+                        name: "FK_Reservation_Room_RoomNumber",
                         column: x => x.RoomNumber,
                         principalTable: "Room",
-                        principalColumn: "RoomNumber");
+                        principalColumn: "RoomNumber",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,48 +239,26 @@ namespace ElSayedHotel.Migrations
                     BillNumber = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReservationNumber = table.Column<int>(type: "int", nullable: false),
-                    GuestId = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Total = table.Column<double>(type: "float", nullable: true, defaultValue: 0.0),
+                    GuestId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: true),
                     PaymentDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    IsPaid = table.Column<bool>(type: "bit", nullable: true, defaultValue: false)
+                    IsPaid = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Bill__C4BBE0C7B6A9ACAD", x => x.BillNumber);
+                    table.PrimaryKey("PK_Bill", x => x.BillNumber);
                     table.ForeignKey(
-                        name: "FK__Bill__GuestId__4CA06362",
+                        name: "FK_Bill_AspNetUsers_GuestId",
                         column: x => x.GuestId,
-                        principalTable: "Guest",
-                        principalColumn: "GuestId");
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK__Bill__Reservatio__4BAC3F29",
+                        name: "FK_Bill_Reservation_ReservationNumber",
                         column: x => x.ReservationNumber,
                         principalTable: "Reservation",
-                        principalColumn: "ReservationNumber");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServiceOrder",
-                columns: table => new
-                {
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    ReservationNumber = table.Column<int>(type: "int", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "(getdate())"),
-                    Amount = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__ServiceO__7AB1D9A43C930B00", x => new { x.ServiceId, x.ReservationNumber });
-                    table.ForeignKey(
-                        name: "FK__ServiceOr__Reser__46E78A0C",
-                        column: x => x.ReservationNumber,
-                        principalTable: "Reservation",
-                        principalColumn: "ReservationNumber");
-                    table.ForeignKey(
-                        name: "FK__ServiceOr__Servi__45F365D3",
-                        column: x => x.ServiceId,
-                        principalTable: "Service",
-                        principalColumn: "ServiceId");
+                        principalColumn: "ReservationNumber",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -343,7 +308,8 @@ namespace ElSayedHotel.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Bill_ReservationNumber",
                 table: "Bill",
-                column: "ReservationNumber");
+                column: "ReservationNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservation_GuestId",
@@ -356,14 +322,14 @@ namespace ElSayedHotel.Migrations
                 column: "RoomNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Room_Type",
+                name: "IX_Room_ownerId",
                 table: "Room",
-                column: "Type");
+                column: "ownerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceOrder_ReservationNumber",
-                table: "ServiceOrder",
-                column: "ReservationNumber");
+                name: "IX_Room_roomType",
+                table: "Room",
+                column: "roomType");
         }
 
         /// <inheritdoc />
@@ -388,25 +354,16 @@ namespace ElSayedHotel.Migrations
                 name: "Bill");
 
             migrationBuilder.DropTable(
-                name: "ServiceOrder");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Reservation");
 
             migrationBuilder.DropTable(
-                name: "Service");
-
-            migrationBuilder.DropTable(
-                name: "Guest");
-
-            migrationBuilder.DropTable(
                 name: "Room");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "RoomType");

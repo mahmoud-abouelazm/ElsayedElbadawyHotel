@@ -45,7 +45,7 @@ namespace ElSayedHotel.Repository
             room.Available = true;
             room.Description = roomViewModel.Description;
             room.Price = roomViewModel.Price;
-            room.Type = roomViewModel.Type;
+            room.roomType = roomViewModel.Type;
             context.Add(room);
             context.SaveChanges();
             return true;

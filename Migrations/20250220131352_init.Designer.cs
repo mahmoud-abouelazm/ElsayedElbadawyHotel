@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElSayedHotel.Migrations
 {
     [DbContext(typeof(HotelElsayedContext))]
-    [Migration("20250209175313_adding image each room")]
-    partial class addingimageeachroom
+    [Migration("20250220131352_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace ElSayedHotel.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -81,6 +80,14 @@ namespace ElSayedHotel.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("firstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -104,13 +111,11 @@ namespace ElSayedHotel.Migrations
 
                     b.Property<string>("GuestId")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool?>("IsPaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateOnly?>("PaymentDate")
                         .HasColumnType("date");
@@ -119,39 +124,16 @@ namespace ElSayedHotel.Migrations
                         .HasColumnType("int");
 
                     b.Property<double?>("Total")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("float")
-                        .HasDefaultValue(0.0);
+                        .HasColumnType("float");
 
-                    b.HasKey("BillNumber")
-                        .HasName("PK__Bill__C4BBE0C7B6A9ACAD");
+                    b.HasKey("BillNumber");
 
                     b.HasIndex("GuestId");
 
-                    b.HasIndex("ReservationNumber");
+                    b.HasIndex("ReservationNumber")
+                        .IsUnique();
 
                     b.ToTable("Bill");
-                });
-
-            modelBuilder.Entity("ElSayedHotel.Models.Guest", b =>
-                {
-                    b.Property<string>("GuestId")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("GuestId")
-                        .HasName("PK__Guest__0C423C12E8623CD2");
-
-                    b.ToTable("Guest");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>
@@ -162,9 +144,6 @@ namespace ElSayedHotel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservationNumber"));
 
-                    b.Property<bool?>("Active")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
 
@@ -173,14 +152,19 @@ namespace ElSayedHotel.Migrations
 
                     b.Property<string>("GuestId")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("ReservationNumber")
-                        .HasName("PK__Reservat__FAA69AEADC809201");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Total")
+                        .HasColumnType("float");
+
+                    b.HasKey("ReservationNumber");
 
                     b.HasIndex("GuestId");
 
@@ -192,16 +176,16 @@ namespace ElSayedHotel.Migrations
             modelBuilder.Entity("ElSayedHotel.Models.Room", b =>
                 {
                     b.Property<int>("RoomNumber")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomNumber"));
+
                     b.Property<bool>("Available")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
@@ -212,13 +196,18 @@ namespace ElSayedHotel.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Type")
+                    b.Property<string>("ownerId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("roomType")
                         .HasColumnType("int");
 
-                    b.HasKey("RoomNumber")
-                        .HasName("PK__Room__AE10E07B607B7DE1");
+                    b.HasKey("RoomNumber");
 
-                    b.HasIndex("Type");
+                    b.HasIndex("ownerId");
+
+                    b.HasIndex("roomType");
 
                     b.ToTable("Room");
                 });
@@ -236,56 +225,9 @@ namespace ElSayedHotel.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("RoomType1")
-                        .HasName("PK__RoomType__3A76E8C27BC59CB5");
+                    b.HasKey("RoomType1");
 
                     b.ToTable("RoomType");
-                });
-
-            modelBuilder.Entity("ElSayedHotel.Models.Service", b =>
-                {
-                    b.Property<int>("ServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<double?>("Price")
-                        .HasColumnType("float");
-
-                    b.HasKey("ServiceId")
-                        .HasName("PK__Service__C51BB00A07EC4D23");
-
-                    b.ToTable("Service");
-                });
-
-            modelBuilder.Entity("ElSayedHotel.Models.ServiceOrder", b =>
-                {
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReservationNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("OrderDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.HasKey("ServiceId", "ReservationNumber")
-                        .HasName("PK__ServiceO__7AB1D9A43C930B00");
-
-                    b.HasIndex("ReservationNumber");
-
-                    b.ToTable("ServiceOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -423,17 +365,17 @@ namespace ElSayedHotel.Migrations
 
             modelBuilder.Entity("ElSayedHotel.Models.Bill", b =>
                 {
-                    b.HasOne("ElSayedHotel.Models.Guest", "Guest")
+                    b.HasOne("ElSayedHotel.Models.ApplicationUser", "Guest")
                         .WithMany("Bills")
                         .HasForeignKey("GuestId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Bill__GuestId__4CA06362");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ElSayedHotel.Models.Reservation", "ReservationNumberNavigation")
-                        .WithMany("Bills")
-                        .HasForeignKey("ReservationNumber")
-                        .IsRequired()
-                        .HasConstraintName("FK__Bill__Reservatio__4BAC3F29");
+                        .WithOne("Bill")
+                        .HasForeignKey("ElSayedHotel.Models.Bill", "ReservationNumber")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Guest");
 
@@ -442,17 +384,17 @@ namespace ElSayedHotel.Migrations
 
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>
                 {
-                    b.HasOne("ElSayedHotel.Models.Guest", "Guest")
+                    b.HasOne("ElSayedHotel.Models.ApplicationUser", "Guest")
                         .WithMany("Reservations")
                         .HasForeignKey("GuestId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Reservati__Guest__3F466844");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ElSayedHotel.Models.Room", "RoomNumberNavigation")
                         .WithMany("Reservations")
                         .HasForeignKey("RoomNumber")
-                        .IsRequired()
-                        .HasConstraintName("FK__Reservati__RoomN__403A8C7D");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Guest");
 
@@ -461,33 +403,19 @@ namespace ElSayedHotel.Migrations
 
             modelBuilder.Entity("ElSayedHotel.Models.Room", b =>
                 {
+                    b.HasOne("ElSayedHotel.Models.ApplicationUser", "owner")
+                        .WithMany("ownedRooms")
+                        .HasForeignKey("ownerId");
+
                     b.HasOne("ElSayedHotel.Models.RoomType", "TypeNavigation")
                         .WithMany("Rooms")
-                        .HasForeignKey("Type")
+                        .HasForeignKey("roomType")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK__Room__Type__3C69FB99");
+                        .IsRequired();
 
                     b.Navigation("TypeNavigation");
-                });
 
-            modelBuilder.Entity("ElSayedHotel.Models.ServiceOrder", b =>
-                {
-                    b.HasOne("ElSayedHotel.Models.Reservation", "ReservationNumberNavigation")
-                        .WithMany("ServiceOrders")
-                        .HasForeignKey("ReservationNumber")
-                        .IsRequired()
-                        .HasConstraintName("FK__ServiceOr__Reser__46E78A0C");
-
-                    b.HasOne("ElSayedHotel.Models.Service", "Service")
-                        .WithMany("ServiceOrders")
-                        .HasForeignKey("ServiceId")
-                        .IsRequired()
-                        .HasConstraintName("FK__ServiceOr__Servi__45F365D3");
-
-                    b.Navigation("ReservationNumberNavigation");
-
-                    b.Navigation("Service");
+                    b.Navigation("owner");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -541,18 +469,18 @@ namespace ElSayedHotel.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ElSayedHotel.Models.Guest", b =>
+            modelBuilder.Entity("ElSayedHotel.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Bills");
 
                     b.Navigation("Reservations");
+
+                    b.Navigation("ownedRooms");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>
                 {
-                    b.Navigation("Bills");
-
-                    b.Navigation("ServiceOrders");
+                    b.Navigation("Bill");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Room", b =>
@@ -563,11 +491,6 @@ namespace ElSayedHotel.Migrations
             modelBuilder.Entity("ElSayedHotel.Models.RoomType", b =>
                 {
                     b.Navigation("Rooms");
-                });
-
-            modelBuilder.Entity("ElSayedHotel.Models.Service", b =>
-                {
-                    b.Navigation("ServiceOrders");
                 });
 #pragma warning restore 612, 618
         }

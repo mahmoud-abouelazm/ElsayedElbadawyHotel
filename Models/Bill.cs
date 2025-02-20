@@ -17,7 +17,7 @@ public partial class Bill
     public int ReservationNumber { get; set; }
 
     [Required]
-    [StringLength(25)]
+    [StringLength(450)]
     public string GuestId { get; set; }
 
     public double? Total { get; set; }
@@ -28,9 +28,9 @@ public partial class Bill
 
     [ForeignKey("GuestId")]
     [InverseProperty("Bills")]
-    public virtual Guest Guest { get; set; }
+    public virtual ApplicationUser Guest { get; set; }
 
     [ForeignKey("ReservationNumber")]
-    [InverseProperty("Bills")]
+    [InverseProperty("Bill")]
     public virtual Reservation ReservationNumberNavigation { get; set; }
 }

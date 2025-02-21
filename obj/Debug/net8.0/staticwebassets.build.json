@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/HlEgco6zv9LLvJEC2s0vIi5z5nUXm3qECB6PTjwe7I=",
+  "Hash": "AOoioYs2sqK3vI3/yKfBDK2r8P2MElHiT33wSbyUcpY=",
   "Source": "ElSayedHotel",
   "BasePath": "_content/ElSayedHotel",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "D:\\داتا من مروان\\ITI courses\\.NET Course\\9.MVC\\ElSayedHotel\\wwwroot\\css\\style.css",
+      "SourceId": "ElSayedHotel",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\داتا من مروان\\ITI courses\\.NET Course\\9.MVC\\ElSayedHotel\\wwwroot\\",
+      "BasePath": "_content/ElSayedHotel",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
       "Identity": "D:\\داتا من مروان\\ITI courses\\.NET Course\\9.MVC\\ElSayedHotel\\wwwroot\\favicon.ico",

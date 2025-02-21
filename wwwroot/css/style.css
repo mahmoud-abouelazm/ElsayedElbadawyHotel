@@ -1,0 +1,177 @@
+﻿/* Reset some styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #6a3b0c, #3b1a04);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background: white !important;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    font-size: 16px;
+    color: #333;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #ffbb00;
+    }
+
+/* Hero Section */
+.hero-section {
+    padding: 120px 0;
+    background: linear-gradient(to bottom, #a45e18, #5a2800);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+    /* Text Styling */
+    .hero-section h1 {
+        font-size: 50px;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .hero-section p {
+        font-size: 18px;
+        color: #eee;
+        max-width: 500px;
+    }
+
+    .hero-section .btn-warning {
+        background: #ffbb00;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 18px;
+    }
+
+        .hero-section .btn-warning:hover {
+            background: #e0a800;
+        }
+
+/* Search Box */
+.search-box {
+    background: white;
+    color: black;
+    border-radius: 12px;
+    padding: 25px;
+    width: 100%;
+    max-width: 450px;
+}
+
+    /* Form Styling */
+    .search-box input {
+        border-radius: 8px;
+        height: 50px;
+        border: 1px solid #ddd;
+    }
+
+    .search-box button {
+        height: 50px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+/* Auth Pages Container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #5a2800, #3b1a04);
+}
+
+/* Auth Box Styling */
+.auth-box {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+    /* Form Inputs */
+    .auth-box .form-control {
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Form Labels */
+    .auth-box .form-label {
+        font-weight: bold;
+    }
+
+    /* Buttons */
+    .auth-box .btn-warning {
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 8px;
+    }
+
+        .auth-box .btn-warning:hover {
+            background: #e0a800;
+        }
+
+    /* Links */
+    .auth-box p {
+        font-size: 14px;
+        color: #333;
+    }
+
+        .auth-box p a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+            .auth-box p a:hover {
+                text-decoration: underline;
+            }
+/* 🏨 Rooms Section */
+.rooms-section {
+    background: #ffebdc;
+    padding: 50px 0;
+}
+
+.room-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+    .room-card:hover {
+        transform: translateY(-5px);
+    }
+
+.room-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.room-details {
+    padding: 15px;
+}
+
+    .room-details h5 {
+        margin-bottom: 10px;
+    }
+
+    .room-details p {
+        font-size: 14px;
+        color: #555;
+    }

@@ -1,75 +1,23 @@
-﻿@model ElSayedHotel.ViewModel.LoginViewModel
-
-@{
+﻿@{
     ViewData["Title"] = "Login";
 }
 
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-6 col-lg-4">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white text-center">
-                    <h3 class="mb-0">Login</h3>
-                </div>
-                <div class="card-body">
-                    <form asp-action="Login">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-
-                        <div class="mb-3">
-                            <label asp-for="UserName" class="form-label"></label>
-                            <input asp-for="UserName" class="form-control" placeholder="Enter your username" autofocus />
-                            <span asp-validation-for="UserName" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Password" class="form-label"></label>
-                            <div class="input-group">
-                                <input asp-for="Password" class="form-control" type="password" placeholder="Enter your password" id="passwordInput" />
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                            </div>
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" asp-for="RememberMe" id="rememberMe" />
-                            <label class="form-check-label" for="rememberMe">
-                                @Html.DisplayNameFor(model => model.RememberMe)
-                            </label>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Login</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <a asp-action="signup" class="text-decoration-none">Don't have an account? Signup</a>
-                </div>
+<div class="auth-container">
+    <div class="auth-box">
+        <h2 class="fw-bold text-center">Login</h2>
+        <form>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter your username">
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn btn-warning w-100">Login</button>
+        </form>
+        <p class="text-center mt-3">
+            Don't have an account? <a href="@Url.Action("SignUp", "Account")">Sign Up</a>
+        </p>
     </div>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script>
-        // Toggle password visibility
-        document.getElementById("togglePassword").addEventListener("click", function () {
-            var passwordInput = document.getElementById("passwordInput");
-            var icon = this.querySelector("i");
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                icon.classList.remove("bi-eye");
-                icon.classList.add("bi-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                icon.classList.remove("bi-eye-slash");
-                icon.classList.add("bi-eye");
-            }
-        });
-    </script>
-}

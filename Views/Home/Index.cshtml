@@ -1,184 +1,78 @@
-﻿@model string
-@{
-    ViewData["Title"] = @Model ;
-}
+﻿@{ 
+    ViewData["Title"] = "Home"; 
+} 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-        }
+<header class="hero-section"> 
+    <div class="container"> 
+        <div class="row align-items-center"> 
+            <!-- Left Side: Text --> 
+            <div class="col-lg-6"> 
+                <h1 class="fw-bold text-white display-4">Egyptian Rooms</h1> 
+                <p class="text-light fs-5"> 
+                    Book to login in divine any mystical color to forget recent three rooms, your coded butterfly at the home palace. 
+                </p> 
+                <a href="#" class="btn btn-warning btn-lg">Book Now</a> 
+            </div> 
+            <!-- Right Side: Search Box --> 
+            <div class="col-lg-6"> 
+                <div class="search-box p-4 shadow-lg bg-white rounded"> 
+                    <h4 class="fw-bold text-dark">Look for Egyptian Rooms</h4> 
+                    <form> 
+                        <div class="mb-3"> 
+                            <input type="text" class="form-control form-control-lg" placeholder="Egyptian Location"> 
+                        </div> 
+                        <div class="mb-3"> 
+                            <input type="text" class="form-control form-control-lg" placeholder="Rooms"> 
+                        </div> 
+                        <div class="mb-3"> 
+                            <input type="text" class="form-control form-control-lg" placeholder="Guests"> 
+                        </div> 
+                        <button type="submit" class="btn btn-warning btn-lg w-100">Search</button> 
+                    </form> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</header> 
 
-        .hero-section {
-            background: url('/img/hero-bg.jpg') no-repeat center center/cover;
-            height: 300px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-            .hero-section h1 {
-                margin-bottom: 20px;
-            }
-
-            .hero-section p {
-                margin-bottom: 20px;
-            }
-
-        .btn-custom {
-            padding: 10px 20px;
-            border-radius: 25px;
-        }
-
-        .buttons-container {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-        }
-
-        .search-container {
-            text-align: center;
-        }
-
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-            .loading-spinner i {
-                font-size: 48px;
-            }
-
-        .available-rooms-container {
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
-
+<!-- 🏨 Rooms Section -->
+<section class="rooms-section">
     <div class="container">
-        <!-- Hero Section -->
-        <partial name="_hero" />
-        <!-- Buttons Section -->
-        <div class="buttons-container">
-            @{
-                if (User.IsInRole("admin"))
-                {
-                    <a asp-action="newroom" asp-controller="room" class="btn btn-primary btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new room">
-                        <i class="fas fa-bed"></i> Add Room
-                    </a>
-                }
-            }
-            <a href="#" class="btn btn-success btn-custom" data-toggle="tooltip" data-placement="top" title="Add a new guest">
-                <i class="fas fa-user-plus"></i> Add Guest
-            </a>
-            <a href="#" class="btn btn-info btn-custom" data-toggle="tooltip" data-placement="top" title="View all reservations">
-                <i class="fas fa-calendar-check"></i> Show Reservations
-            </a>
-            <a href="#" class="btn btn-warning btn-custom" data-toggle="tooltip" data-placement="top" title="Order a service">
-                <i class="fas fa-concierge-bell"></i> Order Service
-            </a>
-            <a href="#" class="btn btn-danger btn-custom" data-toggle="tooltip" data-placement="top" title="Checkout a guest">
-                <i class="fas fa-sign-out-alt"></i> Checkout
-            </a>
-            <a href="#" class="btn btn-secondary btn-custom" data-toggle="tooltip" data-placement="top" title="Pay a bill">
-                <i class="fas fa-credit-card"></i> Pay Bill
-            </a>
-        </div>
-
-        <!-- Search Bar Section -->
-        <div class="search-container">
-            <div class="form-inline justify-content-center mb-3">
-                <label for="checkInDate" class="mr-2">Check-in Date:</label>
-                <input type="date" id="checkInDate" class="form-control mr-3" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        <h2 class="text-center fw-bold mb-4">Available Egyptian Rooms</h2>
+        <div class="row">
+            <!-- Room 1 -->
+            <div class="col-md-4">
+                <div class="room-card">
+                    <img src="https://via.placeholder.com/300x200" alt="Room 1" class="room-img">
+                    <div class="room-details">
+                        <h5 class="fw-bold">Egypt Ancient Frames</h5>
+                        <p>Face: 15,210 JDA</p>
+                        <a href="#" class="btn btn-warning w-100">Book Now</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-inline justify-content-center mb-3">
-                <label for="checkOutDate" class="mr-2">Check-out Date:</label>
-                <input type="date" id="checkOutDate" class="form-control mr-3" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+            <!-- Room 2 -->
+            <div class="col-md-4">
+                <div class="room-card">
+                    <img src="https://via.placeholder.com/300x200" alt="Room 2" class="room-img">
+                    <div class="room-details">
+                        <h5 class="fw-bold">Egypt Philae Scores Rooms</h5>
+                        <p>Face: 15,100 JDA</p>
+                        <a href="#" class="btn btn-warning w-100">Book Now</a>
+                    </div>
+                </div>
             </div>
-
-            <!-- Guests Selection -->
-            <div class="form-inline justify-content-center mb-3">
-                <label for="adults" class="mr-2">Adults:</label>
-                <select id="adults" class="form-control mr-3">
-                    <option value="1">1 Adult</option>
-                    <option value="2" selected>2 Adults</option>
-                    <option value="3">3 Adults</option>
-                    <option value="4">4 Adults</option>
-                    <option value="5">5 Adults</option>
-                </select>
-
-                <label for="babies" class="mr-2">Babies:</label>
-                <select id="babies" class="form-control">
-                    <option value="0" selected>No Babies</option>
-                    <option value="1">1 Baby</option>
-                    <option value="2">2 Babies</option>
-                    <option value="3">3 Babies</option>
-                </select>
-            </div>
-
-            <div class="text-center">
-                <button id="searchRooms" class="btn btn-success btn-custom">Search Rooms</button>
-            </div>
-
-            <!-- Loading Spinner -->
-            <div id="loadingSpinner" class="loading-spinner">
-                <i class="fas fa-spinner fa-spin fa-3x"></i>
-                <p>Loading available rooms...</p>
+            <!-- Room 3 -->
+            <div class="col-md-4">
+                <div class="room-card">
+                    <img src="https://via.placeholder.com/300x200" alt="Room 3" class="room-img">
+                    <div class="room-details">
+                        <h5 class="fw-bold">Luxe Egyptian Rooms</h5>
+                        <p>Face: 15,100 JDA</p>
+                        <a href="#" class="btn btn-warning w-100">Book Now</a>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Partial View for Available Rooms -->
-        <div id="availableRoomsContainer" class="available-rooms-container"></div>
     </div>
-
-    @section Scripts {
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                // Prevent check-out date from being earlier than check-in date
-                $('#checkInDate').change(function () {
-                    var checkInDate = new Date($(this).val());
-                    var minCheckOutDate = new Date(checkInDate);
-                    minCheckOutDate.setDate(minCheckOutDate.getDate() + 1);
-                    $('#checkOutDate').attr('min', minCheckOutDate.toISOString().split('T')[0]);
-                });
-
-                $('#searchRooms').click(function () {
-                    var checkInDate = $('#checkInDate').val();
-                    var checkOutDate = $('#checkOutDate').val();
-                    var adults = $('#adults').val();
-                    var babies = $('#babies').val();
-
-                    $('#loadingSpinner').show();
-
-                    $.ajax({
-                        url: '@Url.Action("SearchAvailableRooms", "Home")',
-                        type: 'POST',
-                        data: { checkInDate, checkOutDate, adults, babies },
-                        success: function (response) {
-                            $('#loadingSpinner').hide();
-                            $('#availableRoomsContainer').html(response);
-                        },
-                        error: function () {
-                            $('#loadingSpinner').hide();
-                            alert('Error loading available rooms. Please try again.');
-                        }
-                    });
-                });
-            });
-        </script>
-    }
-</body>
-</html>
+</section>

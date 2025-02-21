@@ -9572,6 +9572,16 @@
   },
   "logs": [
     {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "System.Text.Encoding.CodePages 4.5.1 depends on Microsoft.NETCore.Platforms (>= 2.1.2) but Microsoft.NETCore.Platforms 2.1.2 was not found. An approximate best match of Microsoft.NETCore.Platforms 3.1.0 was resolved.",
+      "libraryId": "Microsoft.NETCore.Platforms",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,

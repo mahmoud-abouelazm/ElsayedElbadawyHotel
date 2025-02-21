@@ -1,159 +1,27 @@
-﻿@model ElSayedHotel.ViewModel.SignUpViewModel
-
-@{
-    ViewData["Title"] = "Signup";
+﻿@{
+    ViewData["Title"] = "Sign Up";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white text-center">
-                    <h3 class="mb-0">Create an Account</h3>
-                </div>
-                <div class="card-body">
-                    <form asp-action="Signup" method="post">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-
-                        <div class="mb-3">
-                            <label asp-for="userName" class="form-label">Username</label>
-                            <input asp-for="userName" class="form-control" placeholder="Enter your username" required />
-                            <span asp-validation-for="userName" class="text-danger"></span>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="firstName" class="form-label">First Name</label>
-                                <input asp-for="firstName" class="form-control" placeholder="First Name" required />
-                                <span asp-validation-for="firstName" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="lastName" class="form-label">Last Name</label>
-                                <input asp-for="lastName" class="form-control" placeholder="Last Name" required />
-                                <span asp-validation-for="lastName" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="email" class="form-label">Email</label>
-                            <input asp-for="email" type="email" class="form-control" placeholder="example@email.com" required />
-                            <span asp-validation-for="email" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="phoneNumber" class="form-label">Phone Number</label>
-                            <input asp-for="phoneNumber" type="tel" class="form-control" placeholder="0123456789" required />
-                            <span asp-validation-for="phoneNumber" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Address" class="form-label">Address</label>
-                            <input asp-for="Address" class="form-control" placeholder="Your Address" required />
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="password" class="form-label">Password</label>
-                            <div class="input-group">
-                                <input asp-for="password" class="form-control" type="password" id="passwordInput" placeholder="Enter password" required />
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                            </div>
-                            <span asp-validation-for="password" class="text-danger"></span>
-                            <ul class="text-danger small mt-2" id="passwordValidation" style="display: none;">
-                                <li id="length" class="invalid">Must be at least 8 characters long</li>
-                                <li id="uppercase" class="invalid">Must contain at least one uppercase letter</li>
-                                <li id="lowercase" class="invalid">Must contain at least one lowercase letter</li>
-                                <li id="number" class="invalid">Must contain at least one number</li>
-                                <li id="special" class="invalid">Must contain at least one special character (-@@$!%*?&_)</li>
-                            </ul>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input asp-for="confirmPassword" class="form-control" type="password" placeholder="Confirm password" required />
-                            <span asp-validation-for="confirmPassword" class="text-danger"></span>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Signup</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer text-center">
-                    <a asp-action="Login" class="text-decoration-none">Already have an account? Login</a>
-                </div>
+<div class="auth-container">
+    <div class="auth-box">
+        <h2 class="fw-bold text-center">Sign Up</h2>
+        <form>
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name">
             </div>
-        </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Create a password">
+            </div>
+            <button type="submit" class="btn btn-warning w-100">Sign Up</button>
+        </form>
+        <p class="text-center mt-3">
+            Already have an account? <a href="@Url.Action("Login", "Account")">Login</a>
+        </p>
     </div>
 </div>
-
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script>
-        // Toggle password visibility
-        document.getElementById("togglePassword").addEventListener("click", function () {
-            var passwordInput = document.getElementById("passwordInput");
-            var icon = this.querySelector("i");
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                icon.classList.remove("bi-eye");
-                icon.classList.add("bi-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                icon.classList.remove("bi-eye-slash");
-                icon.classList.add("bi-eye");
-            }
-        });
-
-        // Password validation rules
-        const passwordInput = document.getElementById("passwordInput");
-        const passwordValidation = document.getElementById("passwordValidation");
-        const submitBtn = document.getElementById("submitBtn");
-
-        passwordInput.addEventListener("input", function () {
-            const value = passwordInput.value;
-            const lengthValid = value.length >= 8;
-            const uppercaseValid = /[A-Z]/.test(value);
-            const lowercaseValid = /[a-z]/.test(value);
-            const numberValid = /\d/.test(value);
-            const specialValid = /[-@@$!%*?&_]/.test(value);
-
-            // Show validation hints
-            passwordValidation.style.display = "block";
-
-            // Update validation styles
-            document.getElementById("length").classList.toggle("valid", lengthValid);
-            document.getElementById("length").classList.toggle("invalid", !lengthValid);
-
-            document.getElementById("uppercase").classList.toggle("valid", uppercaseValid);
-            document.getElementById("uppercase").classList.toggle("invalid", !uppercaseValid);
-
-            document.getElementById("lowercase").classList.toggle("valid", lowercaseValid);
-            document.getElementById("lowercase").classList.toggle("invalid", !lowercaseValid);
-
-            document.getElementById("number").classList.toggle("valid", numberValid);
-            document.getElementById("number").classList.toggle("invalid", !numberValid);
-
-            document.getElementById("special").classList.toggle("valid", specialValid);
-            document.getElementById("special").classList.toggle("invalid", !specialValid);
-
-            // Enable submit button if all conditions are met
-            submitBtn.disabled = !(lengthValid && uppercaseValid && lowercaseValid && numberValid && specialValid);
-        });
-
-    </script>
-
-    <style>
-        /* Password validation styles (apply only within the password validation list) */
-        #passwordValidation .valid {
-            color: green;
-        }
-
-        #passwordValidation .invalid {
-            color: red;
-        }
-    </style>
-
-}

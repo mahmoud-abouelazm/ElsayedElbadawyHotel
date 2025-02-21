@@ -26,8 +26,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Login - Copy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbiAtIENvcHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Signup - Copy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTaWdudXAgLSBDb3B5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Signup.cshtml]

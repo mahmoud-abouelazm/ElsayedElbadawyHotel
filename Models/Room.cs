@@ -13,20 +13,23 @@ namespace ElSayedHotel.Models;
 public partial class Room
 {
     [Key]
-    public int RoomNumber { get; set; }
-
+    public Guid RoomId { get; set; }
+    public string Address { get; set; }
     public double Price { get; set; }
-
     public bool Available { get; set; }
-
+    public string ownerRoomName { get; set; }
     public string Description { get; set; }
-
+    public int DistrictId { get; set; }
+    public int capacity { get; set; }
     public int roomType { get; set; }
+    [ForeignKey("DistrictId")]
+    public District RoomDistrict { get; set; }
+
     [StringLength(450)]
     public string ownerId { get; set; }
 
 
-    [InverseProperty("RoomNumberNavigation")]
+    [InverseProperty("RoomNavigation")]
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
     [ForeignKey("roomType")]

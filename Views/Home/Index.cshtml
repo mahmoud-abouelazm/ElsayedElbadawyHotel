@@ -1,78 +1,239 @@
-﻿@{ 
-    ViewData["Title"] = "Home"; 
-} 
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+}
 
-<header class="hero-section"> 
-    <div class="container"> 
-        <div class="row align-items-center"> 
-            <!-- Left Side: Text --> 
-            <div class="col-lg-6"> 
-                <h1 class="fw-bold text-white display-4">Egyptian Rooms</h1> 
-                <p class="text-light fs-5"> 
-                    Book to login in divine any mystical color to forget recent three rooms, your coded butterfly at the home palace. 
-                </p> 
-                <a href="#" class="btn btn-warning btn-lg">Book Now</a> 
-            </div> 
-            <!-- Right Side: Search Box --> 
-            <div class="col-lg-6"> 
-                <div class="search-box p-4 shadow-lg bg-white rounded"> 
-                    <h4 class="fw-bold text-dark">Look for Egyptian Rooms</h4> 
-                    <form> 
-                        <div class="mb-3"> 
-                            <input type="text" class="form-control form-control-lg" placeholder="Egyptian Location"> 
-                        </div> 
-                        <div class="mb-3"> 
-                            <input type="text" class="form-control form-control-lg" placeholder="Rooms"> 
-                        </div> 
-                        <div class="mb-3"> 
-                            <input type="text" class="form-control form-control-lg" placeholder="Guests"> 
-                        </div> 
-                        <button type="submit" class="btn btn-warning btn-lg w-100">Search</button> 
-                    </form> 
-                </div> 
-            </div> 
-        </div> 
-    </div> 
-</header> 
+<header class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="fw-bold text-white display-4">Egyptian Rooms</h1>
+                <p class="text-light fs-5">
+                    Find and book the best rooms in Egypt.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="search-box p-4 shadow-lg bg-white rounded">
+                    <h4 class="fw-bold text-dark">Search for Rooms</h4>
+                    <form id="searchForm">
+                        <div class="mb-3">
+                            <label class="form-label">Governorate</label>
+                            <select id="governorateSelect" class="form-control form-control-lg" required>
+                                <option value="">Select Governorate</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">District</label>
+                            <select id="districtSelect" class="form-control form-control-lg" required disabled>
+                                <option value="">Select District</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Select Dates</label>
+                            
+                            <div id="date-range-picker" date-rangepicker class="flex items-center">
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                        </svg>
+                                    </div>
+                                    <input id="datepicker-range-start" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
+                                </div>
+                                <span class="mx-4 text-gray-500">to</span>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                        </svg>
+                                    </div>
+                                    <input id="datepicker-range-end" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Guests</label>
+                            <input type="number" id="guests" class="form-control form-control-lg" min="1" value="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-lg w-100">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <!-- 🏨 Rooms Section -->
 <section class="rooms-section">
     <div class="container">
         <h2 class="text-center fw-bold mb-4">Available Egyptian Rooms</h2>
-        <div class="row">
-            <!-- Room 1 -->
-            <div class="col-md-4">
-                <div class="room-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Room 1" class="room-img">
-                    <div class="room-details">
-                        <h5 class="fw-bold">Egypt Ancient Frames</h5>
-                        <p>Face: 15,210 JDA</p>
-                        <a href="#" class="btn btn-warning w-100">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Room 2 -->
-            <div class="col-md-4">
-                <div class="room-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Room 2" class="room-img">
-                    <div class="room-details">
-                        <h5 class="fw-bold">Egypt Philae Scores Rooms</h5>
-                        <p>Face: 15,100 JDA</p>
-                        <a href="#" class="btn btn-warning w-100">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Room 3 -->
-            <div class="col-md-4">
-                <div class="room-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Room 3" class="room-img">
-                    <div class="room-details">
-                        <h5 class="fw-bold">Luxe Egyptian Rooms</h5>
-                        <p>Face: 15,100 JDA</p>
-                        <a href="#" class="btn btn-warning w-100">Book Now</a>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="roomResults">
+            <!-- Search results will be loaded here -->
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr("#datepicker-range-start", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                onChange: function (selectedDates, dateStr, instance) {
+                    let endPicker = document.querySelector("#datepicker-range-end")._flatpickr;
+                    endPicker.set("minDate", dateStr);
+                }
+            });
+
+            flatpickr("#datepicker-range-end", {
+                dateFormat: "Y-m-d",
+                minDate: "today"
+            });
+        });
+        $(function () {
+            $("#datepicker-range-start").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: 0,
+                onSelect: function (selectedDate) {
+                    $("#datepicker-range-end").datepicker("option", "minDate", selectedDate);
+                }
+            });
+
+            $("#datepicker-range-end").datepicker({
+                dateFormat: "yy-mm-dd",
+                minDate: 0
+            });
+        });
+
+        $(document).ready(function () {
+            loadGovernorates();
+
+            $('#governorateSelect').change(function () {
+                loadDistricts($(this).val());
+                $('#districtSelect').prop('disabled', !$(this).val());
+            });
+
+            $('#searchForm').submit(function (e) {
+                e.preventDefault();
+                if (validateDates()) {
+                    searchRooms();
+                }
+            });
+        });
+
+        function loadGovernorates() {
+            $.get('/home/GetGovernorates', function (data) {
+                data.forEach(g => {
+                    $('#governorateSelect').append(`<option value="${g.id}">${g.name}</option>`);
+                });
+            });
+        }
+
+        function loadDistricts(governorateId) {
+            $('#districtSelect').html('<option value="">Select District</option>');
+            if (!governorateId) return;
+
+            $.get(`/Home/GetDistricts?governorateId=${governorateId}`, function (data) {
+                data.forEach(d => {
+                    $('#districtSelect').append(`<option value="${d.id}">${d.name}</option>`);
+                });
+            });
+        }
+        $(document).ready(function () {
+            loadGovernorates();
+
+            $('#governorateSelect').change(function () {
+                loadDistricts($(this).val());
+            });
+
+            $('#checkin').change(function () {
+                updateCheckoutMinDate();
+            });
+
+            $('#searchForm').submit(function (e) {
+                e.preventDefault();
+                searchRooms();
+            });
+        });
+
+
+        function searchRooms() {
+            var startInput = document.querySelector('input[name="start"]').value;
+            var endInput = document.querySelector('input[name="end"]').value;
+
+            var searchData = {
+                GovernorateId: $('#governorateSelect').val(),
+                DistrictId: $('#districtSelect').val(),
+                CheckIn: startInput,
+                CheckOut: endInput,
+                Guests: $('#guests').val()
+            };
+
+            $.ajax({
+                url: '/room/GetAvailableRooms',
+                type: 'POST',
+                contentType: 'application/json', // Set the correct content type
+                data: JSON.stringify(searchData), // Convert object to JSON string
+                dataType: 'json',
+                success: function (rooms) {
+                    $('#roomResults').html('');
+
+                    if (!rooms || rooms.length === 0) {
+                        $('#roomResults').html('<div class="col-12 text-center text-danger fw-bold fs-4">No available rooms</div>');
+                        return;
+                    }
+
+                    rooms.forEach(room => {
+                        $('#roomResults').append(`
+                            <div class="col-md-4">
+                                <div class="room-card">
+                                    <img src="${room.imageUrl ? room.imageUrl : 'default-room.jpg'}" alt="Room" class="room-img">
+                                    <div class="room-details">
+                                        <h5 class="fw-bold">${room.name ? room.name : 'Unnamed Room'}</h5>
+                                        <p>Price: ${room.price ? room.price + ' EGP' : 'N/A'}</p>
+                                        <a href="#" class="btn btn-warning w-100">Book Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching rooms:', error);
+                    $('#roomResults').html('<div class="col-12 text-center text-danger fw-bold fs-4">No Units available for this search!</div>');
+                }
+            });
+        }
+
+
+        function validateDates() {
+            var checkIn = new Date($('#checkin').val());
+            var checkOut = new Date($('#checkout').val());
+
+            if (checkOut <= checkIn) {
+                alert('Check-out date must be after check-in date.');
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
+@section style{
+    <style>
+
+    /* Custom styles for the date range picker */
+input[name="start"], input[name="end"] {
+    background-color: #f3f4f6; /* Light gray background */
+    border-color: #d1d5db; /* Gray border */
+}
+
+input[name="start"]:focus, input[name="end"]:focus {
+    border-color: #3b82f6; /* Blue border on focus */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Blue glow on focus */
+}
+    </style>
+}

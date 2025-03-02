@@ -19,7 +19,7 @@ public partial class Reservation
 
     public string GuestId { get; set; }
 
-    public int RoomNumber { get; set; }
+    public Guid RoomId { get; set; }
 
     public DateTime CheckIn { get; set; }
 
@@ -36,8 +36,8 @@ public partial class Reservation
     [InverseProperty("Reservations")]
     public virtual ApplicationUser Guest { get; set; }
 
-    [ForeignKey("RoomNumber")]
+    [ForeignKey("RoomId")]
     [InverseProperty("Reservations")]
-    public virtual Room RoomNumberNavigation { get; set; }
+    public virtual Room RoomNavigation { get; set; }
 
 }

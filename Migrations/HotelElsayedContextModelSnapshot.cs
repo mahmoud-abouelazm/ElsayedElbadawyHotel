@@ -133,6 +133,72 @@ namespace ElSayedHotel.Migrations
                     b.ToTable("Bill");
                 });
 
+            modelBuilder.Entity("ElSayedHotel.Models.Country", b =>
+                {
+                    b.Property<int>("CountryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CountryId"));
+
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CountryId");
+
+                    b.ToTable("Country");
+                });
+
+            modelBuilder.Entity("ElSayedHotel.Models.District", b =>
+                {
+                    b.Property<int>("DistrictId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DistrictId"));
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DistrictName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GovernorateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DistrictId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("GovernorateId");
+
+                    b.ToTable("District");
+                });
+
+            modelBuilder.Entity("ElSayedHotel.Models.Governorate", b =>
+                {
+                    b.Property<int>("GovernorateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GovernorateId"));
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GovernorateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GovernorateId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Governorate");
+                });
+
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>
                 {
                     b.Property<int>("ReservationNumber")
@@ -152,8 +218,8 @@ namespace ElSayedHotel.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("int");
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Status")
                         .HasColumnType("int");
@@ -165,24 +231,28 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("GuestId");
 
-                    b.HasIndex("RoomNumber");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Room", b =>
                 {
-                    b.Property<int>("RoomNumber")
+                    b.Property<Guid>("RoomId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomNumber"));
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Available")
                         .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
@@ -193,14 +263,22 @@ namespace ElSayedHotel.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("capacity")
+                        .HasColumnType("int");
+
                     b.Property<string>("ownerId")
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ownerRoomName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("roomType")
                         .HasColumnType("int");
 
-                    b.HasKey("RoomNumber");
+                    b.HasKey("RoomId");
+
+                    b.HasIndex("DistrictId");
 
                     b.HasIndex("ownerId");
 
@@ -379,6 +457,36 @@ namespace ElSayedHotel.Migrations
                     b.Navigation("ReservationNumberNavigation");
                 });
 
+            modelBuilder.Entity("ElSayedHotel.Models.District", b =>
+                {
+                    b.HasOne("ElSayedHotel.Models.Country", "DistrictCountry")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ElSayedHotel.Models.Governorate", "DistrictGovernorate")
+                        .WithMany("Districts")
+                        .HasForeignKey("GovernorateId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DistrictCountry");
+
+                    b.Navigation("DistrictGovernorate");
+                });
+
+            modelBuilder.Entity("ElSayedHotel.Models.Governorate", b =>
+                {
+                    b.HasOne("ElSayedHotel.Models.Country", "GovernorateCountry")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("GovernorateCountry");
+                });
+
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>
                 {
                     b.HasOne("ElSayedHotel.Models.ApplicationUser", "Guest")
@@ -387,19 +495,25 @@ namespace ElSayedHotel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ElSayedHotel.Models.Room", "RoomNumberNavigation")
+                    b.HasOne("ElSayedHotel.Models.Room", "RoomNavigation")
                         .WithMany("Reservations")
-                        .HasForeignKey("RoomNumber")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Guest");
 
-                    b.Navigation("RoomNumberNavigation");
+                    b.Navigation("RoomNavigation");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Room", b =>
                 {
+                    b.HasOne("ElSayedHotel.Models.District", "RoomDistrict")
+                        .WithMany("Rooms")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ElSayedHotel.Models.ApplicationUser", "owner")
                         .WithMany("ownedRooms")
                         .HasForeignKey("ownerId");
@@ -409,6 +523,8 @@ namespace ElSayedHotel.Migrations
                         .HasForeignKey("roomType")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("RoomDistrict");
 
                     b.Navigation("TypeNavigation");
 
@@ -473,6 +589,16 @@ namespace ElSayedHotel.Migrations
                     b.Navigation("Reservations");
 
                     b.Navigation("ownedRooms");
+                });
+
+            modelBuilder.Entity("ElSayedHotel.Models.District", b =>
+                {
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("ElSayedHotel.Models.Governorate", b =>
+                {
+                    b.Navigation("Districts");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>

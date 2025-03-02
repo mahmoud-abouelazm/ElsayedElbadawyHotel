@@ -1,4 +1,5 @@
-﻿using ElSayedHotel.IRepository;
+﻿using Azure.Core;
+using ElSayedHotel.IRepository;
 using ElSayedHotel.Models;
 using ElSayedHotel.ViewModel;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,7 +21,7 @@ namespace ElSayedHotel.Repository
         public async Task<bool> AddRoomAsync(RoomViewModel roomViewModel)
         {
             Room room = new Room();
-            if(context.Rooms.FirstOrDefault(x=>x.RoomNumber == roomViewModel.RoomNumber) is not null)
+            if(context.Rooms.FirstOrDefault(x=>x.RoomId == roomViewModel.RoomId) is not null)
             {
                 return false;
             }
@@ -41,7 +42,7 @@ namespace ElSayedHotel.Repository
                 room.ImageName = imageFile.FileName;
                 room.ImagePath = "/images/" + fileName;
             }
-            room.RoomNumber = roomViewModel.RoomNumber;
+            room.RoomId = roomViewModel.RoomId;
             room.Available = true;
             room.Description = roomViewModel.Description;
             room.Price = roomViewModel.Price;
@@ -57,27 +58,31 @@ namespace ElSayedHotel.Repository
         }
 
 
-        public List<Room> GetAvailableRooms(DateTime checkIn, DateTime? checkOut)
+        public List<Room>? GetAvailableRooms(RoomSearchViewModel roomSearchViewModel)
         {
-            var availableRooms = new List<Room>();
+            List<Room>? availableRooms = null;
+            var checkIn = roomSearchViewModel.CheckIn;
+            var checkOut = roomSearchViewModel.CheckOut;
+            if (checkOut < checkIn) return null;
             try
             {
                 availableRooms = context.Rooms
                     .Where(r =>
                         !context.Reservations.Any(
-                            res => res.RoomNumber == r.RoomNumber &&
+                            res => res.RoomId == r.RoomId &&
                             ((checkIn >= res.CheckIn && checkIn < res.CheckOut) ||
                             (checkOut > res.CheckIn && checkOut <= res.CheckOut) ||
-                            (checkIn <= res.CheckIn && checkOut >= res.CheckOut)
-                        ))
+                            (checkIn <= res.CheckIn && checkOut >= res.CheckOut)))
+                        && r.DistrictId == roomSearchViewModel.DistrictId && r.capacity >= roomSearchViewModel.Guests
                         )
                     .ToList();
             }
             catch (Exception)
             {
-                throw(new Exception("There is a problem with GetAvailableRooms"));
+                return null;
             }
             return availableRooms;
+
         }
 
         public List<RoomType> GetTypes()
@@ -85,9 +90,9 @@ namespace ElSayedHotel.Repository
             return context.RoomTypes.ToList();
         }
 
-		public bool RoomExist(int roomNumber)
+		public bool RoomExist(Guid roomId)
 		{
-            return context.Rooms.Any(x => x.RoomNumber == roomNumber);
+            return context.Rooms.Any(x => x.RoomId == roomId);
 		}
 	}
 }

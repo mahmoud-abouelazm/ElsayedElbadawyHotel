@@ -1,0 +1,11 @@
+﻿@model Room
+<div class="col-md-4">
+                <div class="room-card">
+                    <img src="@Model.ImagePath" alt="@Model.ImageName" class="room-img">
+                    <div class="room-details">
+                        <h5 class="fw-bold">@Model.RoomDistrict.DistrictCountry.CountryName , @Model.RoomDistrict.DistrictName</h5>
+                        <p>@Model.Description</p>
+                        <a href="#" class="btn btn-warning w-100">Book Now</a>
+                    </div>
+                </div>
+</div>

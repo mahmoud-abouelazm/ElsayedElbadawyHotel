@@ -26,16 +26,8 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Login - Copy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbiAtIENvcHkuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Signup - Copy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTaWdudXAgLSBDb3B5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Account/Signup.cshtml]
@@ -50,12 +42,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Home/_AvailableRooms.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfQXZhaWxhYmxlUm9vbXMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Room/newRoom.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbVxuZXdSb29tLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Room/_roomCardView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbVxfcm9vbUNhcmRWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Shared/Error.cshtml]

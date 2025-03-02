@@ -22,6 +22,7 @@ public partial class HotelElsayedContext : IdentityDbContext<ApplicationUser>
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<RoomType> RoomTypes { get; set; }
+    
      
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,7 +30,25 @@ public partial class HotelElsayedContext : IdentityDbContext<ApplicationUser>
         .HasOne(b => b.ReservationNumberNavigation)
         .WithOne(b=>b.Bill)
         .OnDelete(DeleteBehavior.Restrict); // or .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.Entity<District>()
+        .HasOne(d => d.DistrictGovernorate)
+        .WithMany(g => g.Districts)
+        .HasForeignKey(d => d.GovernorateId)
+        .OnDelete(DeleteBehavior.NoAction); // No cascade delete
 
+        // Configure District → Country
+        modelBuilder.Entity<District>()
+            .HasOne(d => d.DistrictCountry)
+            .WithMany()
+            .HasForeignKey(d => d.CountryId)
+            .OnDelete(DeleteBehavior.NoAction); // No cascade delete
+
+        // Configure Governorate → Country
+        modelBuilder.Entity<Governorate>()
+            .HasOne(g => g.GovernorateCountry)
+            .WithMany()
+            .HasForeignKey(g => g.CountryId)
+            .OnDelete(DeleteBehavior.NoAction);
         base.OnModelCreating(modelBuilder);
     }
 

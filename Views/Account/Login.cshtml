@@ -1,23 +1,86 @@
-﻿@{
-    ViewData["Title"] = "Login";
+﻿
+@model LoginViewModel
+@{
+	ViewData["Title"] = "Login";
+}
+<style>
+
+
+	.password-toggle {
+	cursor: pointer;
+	background: white;
+	border: 1px solid black;
+	padding: 5px 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
 }
 
-<div class="auth-container">
-    <div class="auth-box">
-        <h2 class="fw-bold text-center">Login</h2>
-        <form>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter your username">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your password">
-            </div>
-            <button type="submit" class="btn btn-warning w-100">Login</button>
-        </form>
-        <p class="text-center mt-3">
-            Don't have an account? <a href="@Url.Action("SignUp", "Account")">Sign Up</a>
-        </p>
-    </div>
+.password-toggle i {
+	font-size: 18px;
+	color: black; /* Ensure it's visible */
+}
+
+</style>
+
+<div class="auth-container" style="
+    padding-bottom: 215px;
+">
+	<div class="auth-box">
+		<h2 class="fw-bold text-center">Login</h2>
+		<form action="/Account/Login" method="post">
+			<div class="text-danger validation-summary-valid" data-valmsg-summary="true"><ul><li style="display:none"></li>
+</ul></div>
+
+						<div class="mb-3">
+							<label class="form-label" asp-for="UserName">User Name or Email</label>
+							<input class="form-control" placeholder="Enter your username or email" autofocus="" type="text" data-val="true" data-val-required="The UserName field is required." id="UserName" name="UserName" value="">
+							<span class="text-danger field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label" asp-for="Password">Password</label>
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="Enter your password" id="passwordInput" data-val="true" data-val-required="The Password field is required." name="Password">
+								<button class="btn btn-outline-secondary" type="button" id="togglePassword">
+									<i class="bi bi-eye-fill"></i>
+								</button>
+							</div>
+							<span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+						</div>
+
+						<div class="form-check mb-3">
+							<input class="form-check-input" asp-for="RememberMe" type="checkbox" data-val="true" data-val-required="The RememberMe field is required." name="RememberMe">
+							<label class="form-check-label" for="rememberMe">
+								Remember Me
+							</label>
+						</div>
+			<button type="submit" class="btn btn-warning w-100">Login</button>
+		<input name="__RequestVerificationToken" type="hidden" value="CfDJ8FC0cr3Ksv9FtevSGQhDr585Td9P8Da-nDAjvEj34TQbkw27mXVomz4iM6wSUZLbxkG2BTNck12q0cmirECanLSqEOdIkO5H78w4OD8dqakp0Q4WB9zvtbCQo0rkwW33t5BqzEfyJrdGJCuFmBc0mkg"><input name="RememberMe" type="hidden" value="false"></form>
+		<p class="text-center mt-3">
+			Don't have an account? <a href="/Account/SignUp">Sign Up</a>
+		</p>
+	</div>
 </div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+			<script>
+				// Toggle password visibility
+				document.getElementById("togglePassword").addEventListener("click", function () {
+					var passwordInput = document.getElementById("passwordInput");
+					var icon = this.querySelector("i");
+					if (passwordInput.type === "password") {
+						passwordInput.type = "text";
+						icon.classList.remove("bi-eye-fill");
+						icon.classList.add("bi-eye-slash-fill");
+					} else {
+						passwordInput.type = "password";
+							icon.classList.remove("bi-eye-slash-fill");
+						icon.classList.add("bi-eye-fill");
+					}
+				});
+			</script>
+}

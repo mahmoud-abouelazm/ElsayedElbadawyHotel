@@ -11,9 +11,8 @@ namespace ElSayedHotel.ValidationAttributes
 			// Get the DbContext from the DI container
 			var dbContext = validationContext.GetRequiredService<HotelElsayedContext> ();
 
-			int roomNumber = (int)value;
-			bool exists = dbContext.Rooms.Any(x => x.RoomNumber == roomNumber);
-
+			string? roomId = value.ToString();
+			bool exists = dbContext.Rooms.Any(x => x.RoomId.ToString() == roomId);
 			return exists ? new ValidationResult(ErrorMessage ?? "Room number already exists.")
 				: ValidationResult.Success;
 		}

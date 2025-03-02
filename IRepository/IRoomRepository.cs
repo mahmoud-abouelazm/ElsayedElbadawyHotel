@@ -7,9 +7,9 @@ namespace ElSayedHotel.IRepository
     public interface IRoomRepository
     {
         void DeleteRoom(int roomNumber);
-        List<Room> GetAvailableRooms(DateTime checkInDate, DateTime? checkOutDate);
+        List<Room> GetAvailableRooms(RoomSearchViewModel searchRoomModel);
         List<RoomType> GetTypes();
         Task<bool> AddRoomAsync(RoomViewModel roomViewModel);
-        bool RoomExist(int roomNumber);
+        bool RoomExist(Guid roomNumber);
     }
 }

@@ -16,7 +16,7 @@ namespace ElSayedHotel.ViewModel
         public string Address { get; set; }
         public string password { get; set; }
         [DataType(DataType.Password)]
-        [Compare("password")]
+        [Compare("password" , ErrorMessage ="Please ewite password correctly")]
         public string confirmPassword { get; set; }
         
     }

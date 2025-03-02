@@ -2,7 +2,7 @@
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(to bottom, #6a3b0c, #3b1a04);
-    color: #fff;
+    color: black;
     margin: 0;
     padding: 0;
 }
@@ -82,12 +82,19 @@ body {
         font-size: 18px;
         font-weight: bold;
     }
+
 /* Auth Pages Container */
 .auth-container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    position: relative; /* Fix it to the viewport */
+    top: 0; /* Start at the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height (can use 100vh, but 100% works with position: fixed) */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background: linear-gradient(to bottom, #5a2800, #3b1a04);
 }
 
@@ -139,7 +146,8 @@ body {
             .auth-box p a:hover {
                 text-decoration: underline;
             }
-/* 🏨 Rooms Section */
+
+/* Rooms Section */
 .rooms-section {
     background: #ffebdc;
     padding: 50px 0;

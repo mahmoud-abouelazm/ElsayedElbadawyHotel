@@ -1,27 +1,111 @@
-﻿@{
+﻿@model SignUpViewModel
+@{
     ViewData["Title"] = "Sign Up";
 }
 
 <div class="auth-container">
     <div class="auth-box">
-        <h2 class="fw-bold text-center">Sign Up</h2>
-        <form>
-            <div class="mb-3">
-                <label for="fullName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="fullName" placeholder="Enter your full name">
+        <h2 class="fw-bold text-center mb-4">Sign Up</h2>
+
+        <form asp-action="SignUp" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- Username -->
+            <div class="mb-3 position-relative">
+                <label asp-for="userName" class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input asp-for="userName" class="form-control" placeholder="Enter a username">
+                </div>
+                <span asp-validation-for="userName" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+
+            <!-- First Name -->
+            <div class="mb-3 position-relative">
+                <label asp-for="firstName" class="form-label">First Name</label>
+                <input asp-for="firstName" class="form-control" placeholder="First Name">
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Create a password">
+
+            <!-- Last Name -->
+            <div class="mb-3 position-relative">
+                <label asp-for="lastName" class="form-label">Last Name</label>
+                <input asp-for="lastName" class="form-control" placeholder="Last Name">
             </div>
+
+            <!-- Email -->
+            <div class="mb-3 position-relative">
+                <label asp-for="email" class="form-label">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                    <input asp-for="email" class="form-control" type="email" placeholder="Enter your email">
+                </div>
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3 position-relative">
+                <label asp-for="phoneNumber" class="form-label">Phone Number</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                    <input asp-for="phoneNumber" class="form-control" type="tel" placeholder="Enter your phone number">
+                </div>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3 position-relative">
+                <label asp-for="Address" class="form-label">Address</label>
+                <input asp-for="Address" class="form-control" placeholder="Enter your address">
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3 position-relative">
+                <label asp-for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input asp-for="password" class="form-control" type="password" placeholder="Password" id="passwordInput">
+                    
+                </div>
+                <div class="password-strength mt-1" id="passwordStrength"></div>
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3 position-relative">
+                <label asp-for="confirmPassword" class="form-label">Confirm Password</label>
+                <input asp-for="confirmPassword" class="form-control" type="password" placeholder="Confirm Password">
+                <span asp-validation-for="confirmPassword" class="text-danger"></span>
+            </div>
+
+            <!-- Submit Button -->
             <button type="submit" class="btn btn-warning w-100">Sign Up</button>
         </form>
+
+        <!-- Login Link -->
         <p class="text-center mt-3">
             Already have an account? <a href="@Url.Action("Login", "Account")">Login</a>
         </p>
     </div>
 </div>
+
+@section Scripts {
+        <script>
+            
+
+            document.getElementById("passwordInput").addEventListener("input", function () {
+                let strengthBar = document.getElementById("passwordStrength");
+                let value = this.value;
+
+                strengthBar.style.height = "5px";
+                strengthBar.style.borderRadius = "5px";
+                strengthBar.style.transition = "0.3s";
+
+                if (value.length > 8 && /[A-Z]/.test(value) && /\d/.test(value)) {
+                    strengthBar.style.background = "green";
+                } else if (value.length >= 6) {
+                    strengthBar.style.background = "orange";
+                } else {
+                    strengthBar.style.background = "red";
+                }
+            });
+        </script>
+}

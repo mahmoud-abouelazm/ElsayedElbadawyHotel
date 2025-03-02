@@ -355,3 +355,6 @@ D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\obj\Debug
 D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\obj\Debug\net8.0\ElSayedHotel.pdb
 D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\obj\Debug\net8.0\ElSayedHotel.genruntimeconfig.cache
 D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\obj\Debug\net8.0\ref\ElSayedHotel.dll
+D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\bin\Debug\net8.0\libman.json
+D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\bin\Debug\net8.0\package-lock.json
+D:\داتا من مروان\ITI courses\.NET Course\9.MVC\ElSayedHotel\bin\Debug\net8.0\package.json

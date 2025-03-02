@@ -8,13 +8,14 @@ namespace ElSayedHotel.ViewModel
     {
         
         [Required]
-        [DataType("integer")]
         [UniqueRoom]
-        public int RoomNumber { get; set; }
+        public Guid RoomId { get; set; }
         [Required]
         [DataType(DataType.Currency)]
         [Range(10, double.MaxValue, ErrorMessage = "The price must be at least 10.")] public double Price { get; set; }
-
+        [StringLength(255)]
+        [Required]
+        public string roomName { get; set; }
         [StringLength(255)]
         public string? Description { get; set; }
         [Required]

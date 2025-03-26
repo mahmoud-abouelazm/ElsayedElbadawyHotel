@@ -30,7 +30,6 @@ namespace ElSayedHotel
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
             builder.Services.AddScoped<IGuestRepository, GuestRepository>();
-            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<HotelElsayedContext>();
             builder.Services.ConfigureApplicationCookie(options =>
@@ -40,8 +39,12 @@ namespace ElSayedHotel
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.SlidingExpiration = true;
             });
+			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie();
 
-            builder.Services.AddDbContext<HotelElsayedContext>(options =>
+			builder.Services.AddAuthorization();
+
+			builder.Services.AddDbContext<HotelElsayedContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("main")));
             
             

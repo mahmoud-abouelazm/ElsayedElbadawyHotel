@@ -18,6 +18,8 @@ namespace ElSayedHotel.ViewModel
         [DataType(DataType.Password)]
         [Compare("password" , ErrorMessage ="Please ewite password correctly")]
         public string confirmPassword { get; set; }
-        
+        [Range(0 , 2)] // user , owner , admin
+        public int accountType { get; set; } // Assuming accountType is an integer
+
     }
 }

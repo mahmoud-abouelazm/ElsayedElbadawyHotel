@@ -26,11 +26,12 @@ namespace ElSayedHotel.Controllers
         {
             return Content(type);
         }
-        public IActionResult Index(string error = "Hotel Management System")
+        public IActionResult Index()
         {
-            return View((object)error);
+            if(User.IsInRole("Owner"))return View("owner");
+            return View();
         }
-        
+
 
         [HttpPost]
         public ActionResult BookRoom(Guid roomId, string guestId, DateTime checkInDate, DateTime? checkOutDate)

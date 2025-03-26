@@ -38,6 +38,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Home/owner.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxvd25lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -56,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Shared/_hero.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9oZXJvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Shared/_ownerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9vd25lckxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/داتا من مروان/ITI courses/.NET Course/9.MVC/ElSayedHotel/Views/Shared/_ValidationScriptsPartial.cshtml]

@@ -21,9 +21,9 @@ public partial class Room
     public string Description { get; set; }
     public int DistrictId { get; set; }
     public int capacity { get; set; }
-    public int roomType { get; set; }
+    public int? roomType { get; set; }
     [ForeignKey("DistrictId")]
-    public District RoomDistrict { get; set; }
+    public virtual District RoomDistrict { get; set; }
 
     [StringLength(450)]
     public string ownerId { get; set; }

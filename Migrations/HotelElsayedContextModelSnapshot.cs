@@ -218,6 +218,11 @@ namespace ElSayedHotel.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
@@ -273,7 +278,7 @@ namespace ElSayedHotel.Migrations
                     b.Property<string>("ownerRoomName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("roomType")
+                    b.Property<int?>("roomType")
                         .HasColumnType("int");
 
                     b.HasKey("RoomId");
@@ -520,9 +525,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasOne("ElSayedHotel.Models.RoomType", "TypeNavigation")
                         .WithMany("Rooms")
-                        .HasForeignKey("roomType")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("roomType");
 
                     b.Navigation("RoomDistrict");
 

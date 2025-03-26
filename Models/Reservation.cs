@@ -18,6 +18,10 @@ public partial class Reservation
     [StringLength(450)]
 
     public string GuestId { get; set; }
+    [Required]
+    [StringLength(450)]
+
+    public string OwnerId { get; set; }
 
     public Guid RoomId { get; set; }
 

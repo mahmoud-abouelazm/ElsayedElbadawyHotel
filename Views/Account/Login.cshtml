@@ -1,86 +1,78 @@
-﻿
-@model LoginViewModel
+﻿@model LoginViewModel
+
 @{
-	ViewData["Title"] = "Login";
+    ViewData["Title"] = "Login";
 }
+
 <style>
+    .password-toggle {
+        cursor: pointer;
+        background: white;
+        border: 1px solid black;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+    }
 
-
-	.password-toggle {
-	cursor: pointer;
-	background: white;
-	border: 1px solid black;
-	padding: 5px 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 5px;
-}
-
-.password-toggle i {
-	font-size: 18px;
-	color: black; /* Ensure it's visible */
-}
-
+        .password-toggle i {
+            font-size: 18px;
+            color: black;
+        }
 </style>
 
-<div class="auth-container" style="
-    padding-bottom:264px;
-">
-	<div class="auth-box">
-		<h2 class="fw-bold text-center">Login</h2>
-		<form action="/Account/Login" method="post">
-			<div class="text-danger validation-summary-valid" data-valmsg-summary="true"><ul><li style="display:none"></li>
-</ul></div>
+<div class="auth-container" style="padding-bottom:264px;">
+    <div class="auth-box">
+        <h2 class="fw-bold text-center">Login</h2>
 
-						<div class="mb-3">
-							<label class="form-label" asp-for="UserName">UserName or Email</label>
-							<input class="form-control" placeholder="Enter your username or email" autofocus="" type="text" data-val="true" data-val-required="The UserName field is required." id="UserName" name="UserName" value="">
-							<span class="text-danger field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
-						</div>
+        <form asp-action="Login" asp-controller="Account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-						<div class="mb-3">
-							<label class="form-label" asp-for="Password">Password</label>
-							<div class="input-group">
-								<input class="form-control" type="password" placeholder="Enter your password" id="passwordInput" data-val="true" data-val-required="The Password field is required." name="Password">
-								<button class="btn btn-outline-secondary" type="button" id="togglePassword">
-									<i class="bi bi-eye-fill"></i>
-								</button>
-							</div>
-							<span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-						</div>
+            <div class="mb-3">
+                <label asp-for="UserName" class="form-label">UserName or Email</label>
+                <input asp-for="UserName" class="form-control" placeholder="Enter your username or email" autofocus>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
 
-						<div class="form-check mb-3">
-							<input class="form-check-input" asp-for="RememberMe" type="checkbox" data-val="true" data-val-required="The RememberMe field is required." name="RememberMe">
-							<label class="form-check-label" for="rememberMe">
-								Remember Me
-							</label>
-						</div>
-			<button type="submit" class="btn btn-warning w-100">Login</button>
-		<input name="__RequestVerificationToken" type="hidden" value="CfDJ8FC0cr3Ksv9FtevSGQhDr585Td9P8Da-nDAjvEj34TQbkw27mXVomz4iM6wSUZLbxkG2BTNck12q0cmirECanLSqEOdIkO5H78w4OD8dqakp0Q4WB9zvtbCQo0rkwW33t5BqzEfyJrdGJCuFmBc0mkg"><input name="RememberMe" type="hidden" value="false"></form>
-		<p class="text-center mt-3">
-			Don't have an account? <a href="/Account/SignUp">Sign Up</a>
-		</p>
-	</div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <div class="input-group">
+                    <input asp-for="Password" type = "password" class="form-control" placeholder="Enter your password" id="passwordInput">
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="bi bi-eye-fill"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="RememberMe" class="form-check-input">
+                <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100">Login</button>
+        </form>
+
+        <p class="text-center mt-3">
+            Don't have an account? <a asp-controller="Account" asp-action="SignUp">Sign Up</a>
+        </p>
+    </div>
 </div>
+
 @section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
-			<script>
-				// Toggle password visibility
-				document.getElementById("togglePassword").addEventListener("click", function () {
-					var passwordInput = document.getElementById("passwordInput");
-					var icon = this.querySelector("i");
-					if (passwordInput.type === "password") {
-						passwordInput.type = "text";
-						icon.classList.remove("bi-eye-fill");
-						icon.classList.add("bi-eye-slash-fill");
-					} else {
-						passwordInput.type = "password";
-							icon.classList.remove("bi-eye-slash-fill");
-						icon.classList.add("bi-eye-fill");
-					}
-				});
-			</script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function () {
+            var passwordInput = document.getElementById("passwordInput");
+            var icon = this.querySelector("i");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.replace("bi-eye-fill", "bi-eye-slash-fill");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.replace("bi-eye-slash-fill", "bi-eye-fill");
+            }
+        });
+    </script>
 }

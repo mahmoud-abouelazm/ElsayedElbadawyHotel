@@ -1,0 +1,301 @@
+﻿
+@{
+    Layout = null;
+    string userGivenName = @User.Claims.Where(x => x.Type == ClaimTypes.GivenName).Select(x => x.Value).FirstOrDefault();
+    string userEmail = @User.Claims.Where(x => x.Type == ClaimTypes.Email).Select(x => x.Value).FirstOrDefault();
+}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Owner Dashboard</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+          href="/img/Logo.png"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="/assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="/assets/css/demo.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a asp-action="index" asp-controller="home" class="logo">
+              <img
+                src="/assets/img/kaiadmin/logo_light.svg"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+                    <ul class="nav nav-secondary">
+
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section">Owner Dashboard</h4>
+                        </li>
+
+                        <!-- Property Management -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#propertyManagement">
+                                <i class="fas fa-building"></i>
+                                <p>Property Management</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="propertyManagement">
+                                <ul class="nav nav-collapse">
+                                    <li><a href=""><span class="sub-item">My Listings</span></a></li>
+                                    <li><a href="/room/newroom"><span class="sub-item">Add New Property</span></a></li>
+                                    <li><a href="/Property/Availability"><span class="sub-item">Availability Calendar</span></a></li>
+                                    <li><a href="/Property/Pricing"><span class="sub-item">Pricing & Discounts</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Booking Management -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#bookingManagement">
+                                <i class="fas fa-calendar-alt"></i>
+                                <p>Booking Management</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="bookingManagement">
+                                <ul class="nav nav-collapse">
+                                    <li><a href="/Bookings/Upcoming"><span class="sub-item">Upcoming Bookings</span></a></li>
+                                    <li><a href="/Bookings/Past"><span class="sub-item">Past Bookings</span></a></li>
+                                    <li><a href="/Bookings/Requests"><span class="sub-item">Approval Requests</span></a></li>
+                                    <li><a href="/Bookings/Cancellations"><span class="sub-item">Cancellations</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Earnings & Payouts -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#earnings">
+                                <i class="fas fa-wallet"></i>
+                                <p>Earnings & Payouts</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="earnings">
+                                <ul class="nav nav-collapse">
+                                    <li><a href="/Earnings/Revenue"><span class="sub-item">Revenue Summary</span></a></li>
+                                    <li><a href="/Earnings/Payouts"><span class="sub-item">Payout Methods</span></a></li>
+                                    <li><a href="/Earnings/Reports"><span class="sub-item">Financial Reports</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Messaging & Reviews -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#messaging">
+                                <i class="fas fa-comments"></i>
+                                <p>Messaging & Reviews</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="messaging">
+                                <ul class="nav nav-collapse">
+                                    <li><a href="/Messages/Inbox"><span class="sub-item">Inbox</span></a></li>
+                                    <li><a href="/Messages/Automated"><span class="sub-item">Automated Messages</span></a></li>
+                                    <li><a href="/Reviews/GuestReviews"><span class="sub-item">Guest Reviews</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Settings -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#settings">
+                                <i class="fas fa-cog"></i>
+                                <p>Settings</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="settings">
+                                <ul class="nav nav-collapse">
+                                    <li><a href="/Settings/Profile"><span class="sub-item">Profile</span></a></li>
+                                    <li><a href="/Settings/Security"><span class="sub-item">Security & Verification</span></a></li>
+                                    <li><a href="/Settings/Policies"><span class="sub-item">Property Policies</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="assets/img/kaiadmin/logo_light.svg"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
+              </a>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+                </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+          <nav
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+          >
+            <div class="container-fluid">
+              
+
+              <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                
+
+                <li class="nav-item topbar-user dropdown hidden-caret">
+                  <a
+                    class="dropdown-toggle profile-pic"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    aria-expanded="false"
+                  >
+                    
+                    <span class="profile-username">
+                                        <span class="icon-user"></span>
+                      <span class="op-7">Hi,</span>
+                                        <span class="fw-bold">@userGivenName</span>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user animated fadeIn">
+                    <li class="dropdown-user-scroll scrollbar-outer">
+                      <div class="user-box">
+                        <div class="u-text">
+                        <h4>@userGivenName</h4>
+                        <p class="text-muted">@userEmail</p>
+                          
+                        </div>
+                      </div>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li>
+                      <a class="dropdown-item" href="#">Account Setting</a>
+                    </li>
+                    <li>
+                                        <form id="logoutForm" asp-action="Logout" asp-controller="Account" method="post">
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="icon-logout"></i> &nbsp;&nbsp; Logout
+                                            </button>
+                                        </form>
+
+                    </li>
+                  </ul>
+                  
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+            <div class="container">
+                <div class="page-inner">
+                    @RenderBody()
+                </div>
+            </div>
+    </div>
+        @await RenderSectionAsync("Scripts" , false);
+    <!--   Core JS Files   -->
+    <script src="/assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="/assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src=/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="/assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="/assets/js/kaiadmin.min.js"></script>
+
+  </body>
+</html>

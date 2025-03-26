@@ -24,33 +24,20 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">District</label>
-                            <select id="districtSelect" class="form-control form-control-lg" required disabled>
-                                <option value="">Select District</option>
+                            <select id="districtSelect" class="form-control form-control-lg" disabled>
+                                <option value="0">Select District (Optional)</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Select Dates</label>
-                            
-                            <div id="date-range-picker" date-rangepicker class="flex items-center">
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <input id="datepicker-range-start" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <input type="date" id="checkin" name="start" class="form-control" required>
                                 </div>
-                                <span class="mx-4 text-gray-500">to</span>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                        </svg>
-                                    </div>
-                                    <input id="datepicker-range-end" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
+                                <div>
+                                    <input type="date" id="checkout" name="end" class="form-control" required>
                                 </div>
                             </div>
-
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Guests</label>
@@ -65,7 +52,7 @@
 </header>
 
 <!-- 🏨 Rooms Section -->
-<section class="rooms-section">
+<section class="rooms-section" id="availableRoomsSection">
     <div class="container">
         <h2 class="text-center fw-bold mb-4">Available Egyptian Rooms</h2>
         <div class="row" id="roomResults">
@@ -75,145 +62,166 @@
 </section>
 
 @section Scripts {
-    <!-- Add jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            flatpickr("#datepicker-range-start", {
-                dateFormat: "Y-m-d",
-                minDate: "today",
-                onChange: function (selectedDates, dateStr, instance) {
-                    let endPicker = document.querySelector("#datepicker-range-end")._flatpickr;
-                    endPicker.set("minDate", dateStr);
-                }
-            });
-
-            flatpickr("#datepicker-range-end", {
-                dateFormat: "Y-m-d",
-                minDate: "today"
-            });
-        });
-        $(function () {
-            $("#datepicker-range-start").datepicker({
-                dateFormat: "yy-mm-dd",
-                minDate: 0,
-                onSelect: function (selectedDate) {
-                    $("#datepicker-range-end").datepicker("option", "minDate", selectedDate);
-                }
-            });
-
-            $("#datepicker-range-end").datepicker({
-                dateFormat: "yy-mm-dd",
-                minDate: 0
-            });
-        });
-
-        $(document).ready(function () {
+        // Initialize event listeners when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
             loadGovernorates();
 
-            $('#governorateSelect').change(function () {
-                loadDistricts($(this).val());
-                $('#districtSelect').prop('disabled', !$(this).val());
+            const governorateSelect = document.getElementById('governorateSelect');
+            const districtSelect = document.getElementById('districtSelect');
+            const searchForm = document.getElementById('searchForm');
+            const checkinInput = document.getElementById('checkin');
+            const checkoutInput = document.getElementById('checkout');
+
+            // Set minimum date to today for check-in
+            const today = new Date().toISOString().split('T')[0];
+            checkinInput.min = today;
+            checkinInput.value = today;
+
+            // Set minimum date for checkout to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            checkoutInput.min = tomorrow.toISOString().split('T')[0];
+            checkoutInput.value = tomorrow.toISOString().split('T')[0];
+
+            // Ensure checkout date cannot be before checkin
+            checkinInput.addEventListener('change', function () {
+                const newMinCheckout = new Date(checkinInput.value);
+                newMinCheckout.setDate(newMinCheckout.getDate() + 1);
+                checkoutInput.min = newMinCheckout.toISOString().split('T')[0];
+
+                // If current checkout date is before new minimum, update it
+                if (new Date(checkoutInput.value) <= new Date(checkinInput.value)) {
+                    checkoutInput.value = newMinCheckout.toISOString().split('T')[0];
+                }
             });
 
-            $('#searchForm').submit(function (e) {
+            // Enable and load districts when a governorate is selected
+            governorateSelect.addEventListener('change', function () {
+                const governorateId = governorateSelect.value;
+                loadDistricts(governorateId);
+                districtSelect.disabled = (governorateId === "");
+            });
+
+            // Handle form submission
+            searchForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 if (validateDates()) {
-                    searchRooms();
+                    checkUserLoginAndSearch();
                 }
             });
         });
 
+        // Check if user is logged in before searching
+        function checkUserLoginAndSearch() {
+            fetch('/Account/IsUserLoggedIn')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isLoggedIn) {
+                        searchRooms();
+                    } else {
+                        // Redirect to login page with return URL
+                        window.location.href = '/Account/Login?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking login status:', error);
+                    // Default to redirecting to login if there's an error
+                    window.location.href = '/Account/Login';
+                });
+        }
+
+        // Load governorates using Fetch API
         function loadGovernorates() {
-            $.get('/home/GetGovernorates', function (data) {
-                data.forEach(g => {
-                    $('#governorateSelect').append(`<option value="${g.id}">${g.name}</option>`);
-                });
-            });
+            fetch('/home/GetGovernorates')
+                .then(response => response.json())
+                .then(data => {
+                    const governorateSelect = document.getElementById('governorateSelect');
+                    data.forEach(g => {
+                        const option = document.createElement('option');
+                        option.value = g.id;
+                        option.textContent = g.name;
+                        governorateSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error loading governorates:', error));
         }
 
+        // Load districts based on the selected governorate
         function loadDistricts(governorateId) {
-            $('#districtSelect').html('<option value="">Select District</option>');
+            const districtSelect = document.getElementById('districtSelect');
+            districtSelect.innerHTML = '<option value="0">Select District (Optional)</option>';
             if (!governorateId) return;
-
-            $.get(`/Home/GetDistricts?governorateId=${governorateId}`, function (data) {
-                data.forEach(d => {
-                    $('#districtSelect').append(`<option value="${d.id}">${d.name}</option>`);
-                });
-            });
+            fetch(`/Home/GetDistricts?governorateId=${governorateId}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(d => {
+                        const option = document.createElement('option');
+                        option.value = d.id;
+                        option.textContent = d.name;
+                        districtSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error loading districts:', error));
         }
-        $(document).ready(function () {
-            loadGovernorates();
 
-            $('#governorateSelect').change(function () {
-                loadDistricts($(this).val());
-            });
-
-            $('#checkin').change(function () {
-                updateCheckoutMinDate();
-            });
-
-            $('#searchForm').submit(function (e) {
-                e.preventDefault();
-                searchRooms();
-            });
-        });
-
-
+        // Perform the search for rooms
         function searchRooms() {
-            var startInput = document.querySelector('input[name="start"]').value;
-            var endInput = document.querySelector('input[name="end"]').value;
-
-            var searchData = {
-                GovernorateId: $('#governorateSelect').val(),
-                DistrictId: $('#districtSelect').val(),
+            const startInput = document.getElementById('checkin').value;
+            const endInput = document.getElementById('checkout').value;
+            // If no district is selected, default to "0"
+            const districtValue = document.getElementById('districtSelect').value || "0";
+            const searchData = {
+                GovernorateId: document.getElementById('governorateSelect').value,
+                DistrictId: districtValue,
                 CheckIn: startInput,
                 CheckOut: endInput,
-                Guests: $('#guests').val()
+                Guests: document.getElementById('guests').value
             };
 
-            $.ajax({
-                url: '/room/GetAvailableRooms',
-                type: 'POST',
-                contentType: 'application/json', // Set the correct content type
-                data: JSON.stringify(searchData), // Convert object to JSON string
-                dataType: 'json',
-                success: function (rooms) {
-                    $('#roomResults').html('');
-
-                    if (!rooms || rooms.length === 0) {
-                        $('#roomResults').html('<div class="col-12 text-center text-danger fw-bold fs-4">No available rooms</div>');
-                        return;
-                    }
-
-                    rooms.forEach(room => {
-                        $('#roomResults').append(`
-                            <div class="col-md-4">
-                                <div class="room-card">
-                                    <img src="${room.imageUrl ? room.imageUrl : 'default-room.jpg'}" alt="Room" class="room-img">
-                                    <div class="room-details">
-                                        <h5 class="fw-bold">${room.name ? room.name : 'Unnamed Room'}</h5>
-                                        <p>Price: ${room.price ? room.price + ' EGP' : 'N/A'}</p>
-                                        <a href="#" class="btn btn-warning w-100">Book Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
+            fetch('/room/GetAvailableRooms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                error: function (xhr, status, error) {
+                body: JSON.stringify(searchData)
+            })
+                .then(response => response.json())
+                .then(rooms => {
+                    const roomResults = document.getElementById('roomResults');
+                    roomResults.innerHTML = '';
+                    if (!rooms || rooms.length === 0) {
+                        roomResults.innerHTML = '<div class="col-12 text-center text-danger fw-bold fs-4">No available rooms</div>';
+                    } else {
+                        rooms.forEach(room => {
+                            const colDiv = document.createElement('div');
+                            colDiv.className = 'col-md-4';
+                            colDiv.innerHTML = `
+                                            <div class="room-card">
+                                                <img src="${room.imageUrl ? room.imageUrl : 'default-room.jpg'}" alt="Room" class="room-img img-fluid">
+                                                <div class="room-details p-2">
+                                                    <h5 class="fw-bold">${room.name ? room.name : 'Unnamed Room'}</h5>
+                                                    <p>Price: ${room.price ? room.price + ' EGP' : 'N/A'}</p>
+                                                    <a href="#" class="btn btn-warning w-100">Book Now</a>
+                                                </div>
+                                            </div>
+                                        `;
+                            roomResults.appendChild(colDiv);
+                        });
+                    }
+                    // Smooth scroll to the rooms section
+                    document.getElementById('availableRoomsSection').scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => {
                     console.error('Error fetching rooms:', error);
-                    $('#roomResults').html('<div class="col-12 text-center text-danger fw-bold fs-4">No Units available for this search!</div>');
-                }
-            });
+                    document.getElementById('roomResults').innerHTML = '<div class="col-12 text-center text-danger fw-bold fs-4">No Units available for this search!</div>';
+                });
         }
 
-
+        // Validate that the checkout date is after the checkin date
         function validateDates() {
-            var checkIn = new Date($('#checkin').val());
-            var checkOut = new Date($('#checkout').val());
-
+            const checkIn = new Date(document.getElementById('checkin').value);
+            const checkOut = new Date(document.getElementById('checkout').value);
             if (checkOut <= checkIn) {
                 alert('Check-out date must be after check-in date.');
                 return false;
@@ -222,18 +230,18 @@
         }
     </script>
 }
-@section style{
+
+@section style {
     <style>
+        /* Custom styles for native date inputs */
+        input[type="date"] {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
 
-    /* Custom styles for the date range picker */
-input[name="start"], input[name="end"] {
-    background-color: #f3f4f6; /* Light gray background */
-    border-color: #d1d5db; /* Gray border */
-}
-
-input[name="start"]:focus, input[name="end"]:focus {
-    border-color: #3b82f6; /* Blue border on focus */
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Blue glow on focus */
-}
+            input[type="date"]:focus {
+                border-color: #3b82f6;
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+            }
     </style>
 }

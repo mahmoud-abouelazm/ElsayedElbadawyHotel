@@ -7,48 +7,63 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace ElSayedHotel.Repository
 {
     public class RoomRepository : IRoomRepository
     {
         private HotelElsayedContext context ;
-        public RoomRepository( HotelElsayedContext _context )
+        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly string path;
+        public RoomRepository( HotelElsayedContext _context , IWebHostEnvironment webHostEnvironment)
         {
             context = _context;
+            this.webHostEnvironment = webHostEnvironment;
+            path = webHostEnvironment.WebRootPath+"/rooms/images";
         }
+        private async Task<string>AddImageAsync(IFormFile? imageFile)
+        {
+            string roomImageName = $"{Guid.NewGuid()}{Path.GetExtension(imageFile.FileName)}";
+            string imagePath = Path.Combine(path, roomImageName);
 
+            // Ensure the directory exists
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return roomImageName;   
+        }
         public async Task<bool> AddRoomAsync(RoomViewModel roomViewModel)
         {
-            Room room = new Room();
-            if(context.Rooms.FirstOrDefault(x=>x.RoomId == roomViewModel.RoomId) is not null)
+            
+            Room room = new Room()
             {
-                return false;
-            }
+                Available = true,
+                Description = roomViewModel.Description,
+                DistrictId = roomViewModel.DistrictId,
+                ownerId = roomViewModel.ownerId,
+                Price = roomViewModel.Price,
+                ownerRoomName = roomViewModel.roomName,
+                capacity = 100,
+                Address = "NO address",
+                
+            };
+
             IFormFile? imageFile = roomViewModel?.imageFile;
             if (imageFile != null && imageFile.Length > 0)
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                Directory.CreateDirectory(uploadsFolder); // Ensure the folder exists
-
-                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                string filePath = Path.Combine(uploadsFolder, fileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await imageFile.CopyToAsync(fileStream);
-                }
-
-                room.ImageName = imageFile.FileName;
-                room.ImagePath = "/images/" + fileName;
+                var roomImageName = await AddImageAsync(imageFile);
+                room.ImageName = imageFile.FileName; 
+                room.ImagePath = $"/rooms/images/{roomImageName}";  
             }
-            room.RoomId = roomViewModel.RoomId;
-            room.Available = true;
-            room.Description = roomViewModel.Description;
-            room.Price = roomViewModel.Price;
-            room.roomType = roomViewModel.Type;
             context.Add(room);
-            context.SaveChanges();
+            await context.SaveChangesAsync(); // Ensure async call
             return true;
         }
 
@@ -66,7 +81,7 @@ namespace ElSayedHotel.Repository
             if (checkOut < checkIn) return null;
             try
             {
-                availableRooms = context.Rooms
+                if(roomSearchViewModel.DistrictId != 0) availableRooms = context.Rooms
                     .Where(r =>
                         !context.Reservations.Any(
                             res => res.RoomId == r.RoomId &&
@@ -76,6 +91,17 @@ namespace ElSayedHotel.Repository
                         && r.DistrictId == roomSearchViewModel.DistrictId && r.capacity >= roomSearchViewModel.Guests
                         )
                     .ToList();
+                else availableRooms = context.Rooms
+                    .Where(r =>
+                        !context.Reservations.Any(
+                            res => res.RoomId == r.RoomId &&
+                            ((checkIn >= res.CheckIn && checkIn < res.CheckOut) ||
+                            (checkOut > res.CheckIn && checkOut <= res.CheckOut) ||
+                            (checkIn <= res.CheckIn && checkOut >= res.CheckOut)))
+                        && r.RoomDistrict.GovernorateId == roomSearchViewModel.GovernorateId && r.capacity >= roomSearchViewModel.Guests
+                        ).Include(c=>c.RoomDistrict).ThenInclude(x=>x.DistrictGovernorate)
+                    .ToList();
+
             }
             catch (Exception)
             {
@@ -85,9 +111,9 @@ namespace ElSayedHotel.Repository
 
         }
 
-        public List<RoomType> GetTypes()
+        public dynamic GetTypes()
         {
-            return context.RoomTypes.ToList();
+            return context.RoomTypes.Select(x => new {id = x.RoomType1 , type = x.Type}).ToList();
         }
 
 		public bool RoomExist(Guid roomId)

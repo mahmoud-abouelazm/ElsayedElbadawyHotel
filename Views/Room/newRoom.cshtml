@@ -1,81 +1,139 @@
 ﻿@model ElSayedHotel.ViewModel.RoomViewModel
+
 @{
-    ViewData["Title"] = "New Room";
-    SelectList list = new SelectList(Model.roomTypesList, "RoomType1", "Type");
+    ViewData["Title"] = "Add Room";
+    Layout = "_ownerLayout";
 }
 
-<h1 class="text-center text-primary">Add New Room</h1>
-<hr />
+<h2>Add Room</h2>
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <form asp-action="newRoom" class="shadow p-4 rounded bg-light" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <!-- Room Number -->
-            <div class="form-group mb-3">
-                <label asp-for="roomName" class="form-label fw-bold"></label>
-                <input asp-for="roomName" class="form-control" placeholder="Enter room name" />
-                <span asp-validation-for="roomName" class="text-danger small"></span>
-            </div>
-
-            <!-- Price -->
-            <div class="form-group mb-3">
-                <label asp-for="Price" class="form-label fw-bold"></label>
-                <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input asp-for="Price" class="form-control" placeholder="Enter price" />
-                </div>
-                <span asp-validation-for="Price" class="text-danger small"></span>
-            </div>
-
-            <!-- Description -->
-            <div class="form-group mb-3">
-                <label asp-for="Description" class="form-label fw-bold"></label>
-                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
-                <span asp-validation-for="Description" class="text-danger small"></span>
-            </div>
-
-            <!-- Room Type -->
-            <div class="form-group mb-3">
-                <label asp-for="Type" class="form-label fw-bold"></label>
-                <select asp-for="Type" class="form-select" asp-items="list">
-                    <option value="0">Select room type</option>
-                </select>
-                <span asp-validation-for="Type" class="text-danger small"></span>
-            </div>
-            <!-- Room Photo -->
-            <div class="form-group mb-3">
-                <label asp-for="imageFile" class="form-label fw-bold"></label>
-                <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input asp-for="imageFile" accept="image/*" />
-                </div>
-                <span asp-validation-for="imageFile" class="text-danger small"></span>
-            </div>
-     
-            <!-- Hidden Field -->
-            <input type="hidden" asp-for="roomTypesList" value="@Model.roomTypesList" />
-
-            <!-- Submit Button -->
-            <div class="form-group d-grid gap-2">
-                <button type="submit" class="btn btn-success btn-lg">
-                    <i class="bi bi-check-circle"></i> Create Room
-                </button>
-            </div>
-        </form>
+<form asp-action="newroom" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="roomName" class="control-label"></label>
+        <input asp-for="roomName" class="form-control" />
+        <span asp-validation-for="roomName" class="text-danger"></span>
     </div>
-</div>
 
-<!-- Back to List -->
-<div class="text-center mt-4">
-    <a asp-action="Index" asp-controller="home" class="btn btn-secondary">
-        <i class="bi bi-arrow-left"></i> Back to List
-    </a>
-</div>
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="capacity" class="control-label"></label>
+        <input asp-for="capacity" class="form-control" type="number" />
+        <span asp-validation-for="capacity" class="text-danger"></span>
+    </div>
+
+    
+
+    <div class="form-group">
+        <label class="form-label">Governorate</label>
+        <select asp-for="GovernorateId" id="governorateSelect" class="form-control" required onchange="handleGovernorateChange()">
+            <option value="">Select Governorate</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="form-label">District</label>
+        <select asp-for="DistrictId" id="districtSelect" required class="form-control" disabled>
+            <option value="0">Select District</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="imageFile" class="control-label"></label>
+        <input asp-for="imageFile" type="file" class="form-control" accept="image/*" onchange="previewImage(event)" />
+        <span asp-validation-for="imageFile" class="text-danger"></span>
+        <div class="mt-2">
+            <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 200px; display: none;" />
+        </div>
+    </div>
+
+    <input asp-for="ownerId" hidden value="@User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault()" />
+    <div class="form-group">
+        <label asp-for="Available" class="control-label"></label>
+        <input asp-for="Available" type="checkbox" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadGovernorates();
+        });
+
+        function loadGovernorates() {
+            fetch('/home/GetGovernorates')
+                .then(response => response.json())
+                .then(data => {
+                    const governorateSelect = document.getElementById('governorateSelect');
+                    data.forEach(g => {
+                        const option = document.createElement('option');
+                        option.value = g.id;
+                        option.textContent = g.name;
+                        governorateSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error loading governorates:', error));
+        }
+
+        function loadDistricts(governorateId) {
+            const districtSelect = document.getElementById('districtSelect');
+            districtSelect.innerHTML = '<option>Select District</option>';
+            districtSelect.disabled = true;
+            if (!governorateId) return;
+            fetch(`/Home/GetDistricts?governorateId=${governorateId}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(d => {
+                        const option = document.createElement('option');
+                        option.value = d.id;
+                        option.textContent = d.name;
+                        districtSelect.appendChild(option);
+                    });
+                    districtSelect.disabled = false;
+                })
+                .catch(error => console.error('Error loading districts:', error));
+        }
+
+        function handleGovernorateChange() {
+            const governorateSelect = document.getElementById('governorateSelect');
+            loadDistricts(governorateSelect.value);
+        }
+
+        function previewImage(event) {
+            const image = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    image.src = e.target.result;
+                    image.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                image.style.display = 'none';
+            }
+        }
+    </script>
 }

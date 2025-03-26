@@ -63,7 +63,7 @@
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                     <input asp-for="password" class="form-control" type="password" placeholder="Password" id="passwordInput">
-                    
+
                 </div>
                 <div class="password-strength mt-1" id="passwordStrength"></div>
                 <span asp-validation-for="password" class="text-danger"></span>
@@ -74,6 +74,16 @@
                 <label asp-for="confirmPassword" class="form-label">Confirm Password</label>
                 <input asp-for="confirmPassword" class="form-control" type="password" placeholder="Confirm Password">
                 <span asp-validation-for="confirmPassword" class="text-danger"></span>
+            </div>
+
+            <!-- Account Type -->
+            <div class="mb-3 position-relative">
+                <label asp-for="accountType" class="form-label">Account Type</label>
+                <select asp-for="accountType" class="form-select">
+                    <option value="0">Renter</option>
+                    <option value="1">Owner</option>
+                </select>
+                <span asp-validation-for="accountType" class="text-danger"></span>
             </div>
 
             <!-- Submit Button -->
@@ -88,24 +98,22 @@
 </div>
 
 @section Scripts {
-        <script>
-            
+    <script>
+        document.getElementById("passwordInput").addEventListener("input", function () {
+            let strengthBar = document.getElementById("passwordStrength");
+            let value = this.value;
 
-            document.getElementById("passwordInput").addEventListener("input", function () {
-                let strengthBar = document.getElementById("passwordStrength");
-                let value = this.value;
+            strengthBar.style.height = "5px";
+            strengthBar.style.borderRadius = "5px";
+            strengthBar.style.transition = "0.3s";
 
-                strengthBar.style.height = "5px";
-                strengthBar.style.borderRadius = "5px";
-                strengthBar.style.transition = "0.3s";
-
-                if (value.length > 8 && /[A-Z]/.test(value) && /\d/.test(value)) {
-                    strengthBar.style.background = "green";
-                } else if (value.length >= 6) {
-                    strengthBar.style.background = "orange";
-                } else {
-                    strengthBar.style.background = "red";
-                }
-            });
-        </script>
+            if (value.length > 8 && /[A-Z]/.test(value) && /\d/.test(value)) {
+                strengthBar.style.background = "green";
+            } else if (value.length >= 6) {
+                strengthBar.style.background = "orange";
+            } else {
+                strengthBar.style.background = "red";
+            }
+        });
+    </script>
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ElSayedHotel.Models;
 
 [Table("Room")]
-public partial class Room
+public partial class Room : IDeletable
 {
     [Key]
     public Guid RoomId { get; set; }
@@ -21,6 +21,7 @@ public partial class Room
     public string Description { get; set; }
     public int DistrictId { get; set; }
     public int capacity { get; set; }
+    
     public int? roomType { get; set; }
     [ForeignKey("DistrictId")]
     public virtual District RoomDistrict { get; set; }
@@ -40,4 +41,5 @@ public partial class Room
     public string? ImageName { get; set; } // Store the image file name
 
     public string? ImagePath { get; set; } // Store the path to the image
+    public bool isDeleted { get ; set; }
 }

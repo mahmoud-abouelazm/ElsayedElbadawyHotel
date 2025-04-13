@@ -4,6 +4,7 @@ using ElSayedHotel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElSayedHotel.Migrations
 {
     [DbContext(typeof(HotelElsayedContext))]
-    partial class HotelElsayedContextModelSnapshot : ModelSnapshot
+    [Migration("20250329214918_adding soft-delete to room")]
+    partial class addingsoftdeletetoroom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,7 +133,7 @@ namespace ElSayedHotel.Migrations
                     b.HasIndex("ReservationNumber")
                         .IsUnique();
 
-                    b.ToTable("Bill", (string)null);
+                    b.ToTable("Bill");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Country", b =>
@@ -147,7 +150,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Country", (string)null);
+                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.District", b =>
@@ -174,7 +177,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("GovernorateId");
 
-                    b.ToTable("District", (string)null);
+                    b.ToTable("District");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Governorate", b =>
@@ -196,7 +199,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Governorate", (string)null);
+                    b.ToTable("Governorate");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Reservation", b =>
@@ -238,7 +241,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Reservation", (string)null);
+                    b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.Room", b =>
@@ -292,7 +295,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasIndex("roomType");
 
-                    b.ToTable("Room", (string)null);
+                    b.ToTable("Room");
                 });
 
             modelBuilder.Entity("ElSayedHotel.Models.RoomType", b =>
@@ -310,7 +313,7 @@ namespace ElSayedHotel.Migrations
 
                     b.HasKey("RoomType1");
 
-                    b.ToTable("RoomType", (string)null);
+                    b.ToTable("RoomType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

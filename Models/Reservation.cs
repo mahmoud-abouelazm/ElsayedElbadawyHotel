@@ -29,7 +29,7 @@ public partial class Reservation
 
     public DateTime? CheckOut { get; set; }
 
-    public int? Status { get; set; } = 0; // 0 pending 1 confermed 2 canseled  
+    public int? Status { get; set; } = 0; // 0 pending 1 Confirmed 2 canceled 3 Completed
     public double? Total { get; set; }
 
 

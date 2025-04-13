@@ -120,5 +120,21 @@ namespace ElSayedHotel.Repository
 		{
             return context.Rooms.Any(x => x.RoomId == roomId);
 		}
-	}
+
+        public async Task<List<OwnersRoomListItem>> GetOwnerPropertiesAsync(string ownerId)
+        {
+            var propertiesList = await context.Rooms
+                .Where((room) => room.ownerId == ownerId)
+                .Select(room => new OwnersRoomListItem() {
+                    Id = room.RoomId,
+                    Name = room.ownerRoomName,
+                    Price = room.Price,
+                    District = room.RoomDistrict.DistrictName
+                })
+                .AsNoTracking()
+                .OrderBy(room => room.District)
+                .ToListAsync();
+            return propertiesList;
+        }
+    }
 }

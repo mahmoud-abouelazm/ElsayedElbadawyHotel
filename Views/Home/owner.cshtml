@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OwnerPageViewModel
+@{
     Layout = "_ownerLayout";
 }
 
@@ -24,8 +25,8 @@
                             </div>
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
-                                    <p class="card-category">Propertys</p>
-                                    <h4 class="card-title">1,294</h4>
+                            <p class="card-category">Properties</p>
+                                    <h4 class="card-title">@Model.Properties</h4>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +45,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category">Clients</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <h4 class="card-title">@Model.Clients</h4>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +64,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <h4 class="card-title">$ @Model.Sales</h4>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +83,7 @@
                             <div class="col col-stats ms-3 ms-sm-0">
                                 <div class="numbers">
                                     <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <h4 class="card-title">@Model.Order</h4>
                                 </div>
                             </div>
                         </div>
@@ -122,105 +123,29 @@
                         <table class="table align-items-center mb-0">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Payment Number</th>
-                                    <th scope="col" class="text-end">Date & Time</th>
+                                    <th scope="col">Property Name</th>
+                                    <th scope="col" class="text-end">Start Date</th>
+                                    <th scope="col" class="text-end">End Date</th>
                                     <th scope="col" class="text-end">Amount</th>
                                     <th scope="col" class="text-end">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach (var item in Model.LastBookings)
+                            {
                                 <tr>
-                                    <th scope="row">
-                                        <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        Payment from #10231
-                                    </th>
-                                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                    <td class="text-end">$250.00</td>
-                                    <td class="text-end">
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
+                                <th scope="row">
+                                    @item.RoomName    
+                                </th>
+                                <td class="text-end">@item.StartDate</td>
+                                <td class="text-end">@item.EndDate</td>
+                                <td class="text-end">$@item.Amount</td>
+                                <td class="text-end">
+                                    <span class="badge badge-@item.StatusColor">@item.Status</span>
+                                </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        Payment from #10231
-                                    </th>
-                                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                    <td class="text-end">$250.00</td>
-                                    <td class="text-end">
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        Payment from #10231
-                                    </th>
-                                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                    <td class="text-end">$250.00</td>
-                                    <td class="text-end">
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        Payment from #10231
-                                    </th>
-                                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                    <td class="text-end">$250.00</td>
-                                    <td class="text-end">
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        Payment from #10231
-                                    </th>
-                                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                    <td class="text-end">$250.00</td>
-                                    <td class="text-end">
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        Payment from #10231
-                                    </th>
-                                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                    <td class="text-end">$250.00</td>
-                                    <td class="text-end">
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        Payment from #10231
-                                    </th>
-                                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                    <td class="text-end">$250.00</td>
-                                    <td class="text-end">
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            }
+                    </tbody>
                         </table>
                     </div>
                 </div>

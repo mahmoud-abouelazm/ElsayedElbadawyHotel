@@ -22,8 +22,17 @@ public partial class HotelElsayedContext : IdentityDbContext<ApplicationUser>
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<RoomType> RoomTypes { get; set; }
-    
-     
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var x = ChangeTracker.Entries<IDeletable>().Where(state => state.State == EntityState.Deleted);
+        foreach(var state in x)
+        {
+            state.Property(nameof(IDeletable.isDeleted)).CurrentValue = true;
+            state.State = EntityState.Modified;
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Bill>()
@@ -35,6 +44,8 @@ public partial class HotelElsayedContext : IdentityDbContext<ApplicationUser>
         .WithMany(g => g.Districts)
         .HasForeignKey(d => d.GovernorateId)
         .OnDelete(DeleteBehavior.NoAction); // No cascade delete
+
+        modelBuilder.Entity<Room>().HasQueryFilter(r => !r.isDeleted); 
 
         // Configure District → Country
         modelBuilder.Entity<District>()

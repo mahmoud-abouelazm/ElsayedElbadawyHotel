@@ -15,19 +15,21 @@ namespace ElSayedHotel.Controllers
         {
             roomRepository = _roomRepository;
         }
-        public IActionResult newRoom()
+        [Authorize(Roles ="Owner")]
+        public IActionResult AddRoom()
         {
             RoomViewModel roomViewModel = new RoomViewModel();
             return View(roomViewModel);
         }
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> newRoom(RoomViewModel room)
+        public async Task<IActionResult> AddRoom(RoomViewModel room)
         {
-            
+
             if (ModelState.IsValid && await roomRepository.AddRoomAsync(room))
             {
-                      return  RedirectToAction("index", "home");
+                return RedirectToAction("index", "home");
             }
             return View(room);
         }

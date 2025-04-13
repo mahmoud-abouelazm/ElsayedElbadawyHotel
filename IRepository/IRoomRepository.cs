@@ -11,5 +11,6 @@ namespace ElSayedHotel.IRepository
         dynamic GetTypes();
         Task<bool> AddRoomAsync(RoomViewModel roomViewModel);
         bool RoomExist(Guid roomNumber);
+        Task<List<OwnersRoomListItem>> GetOwnerPropertiesAsync(string ownerId);
     }
 }

@@ -1,0 +1,58 @@
+﻿@model List<OwnersRoomListItem>
+@{
+    Layout = "_ownerLayout";
+    ViewData["Title"] = "Owners Room List";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Owners Room List</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>District</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Model)
+            {
+                <tr id="row-@room.Id">
+                    <td>@room.Name</td>
+                    <td>@room.Price</td>
+                    <td>@room.District</td>
+                    <td>
+                        <a href="/Room/Details/@room.Id" class="btn btn-info btn-sm">View</a>
+                        <a href="/Room/Edit/@room.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <button class="btn btn-danger btn-sm delete-room" data-id="@room.Id">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".delete-room").click(function () {
+                var roomId = $(this).data("id");
+
+                if (confirm("Are you sure you want to delete this room?")) {
+                    $.ajax({
+                        url: '/Room/Delete/' + roomId,
+                        type: 'POST',
+                        success: function (response) {
+                            $("#row-" + roomId).fadeOut(500, function () { $(this).remove(); });
+                        },
+                        error: function () {
+                            alert("Error deleting room.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
